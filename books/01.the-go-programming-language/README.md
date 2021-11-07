@@ -45,3 +45,26 @@ go version go1.5 linux/amd64
 
 Follow the instructions at `https://golang.org/doc/install` if the `go` tool on your computer
 is older or missing.
+
+## 2. The Origins of Go
+
+The best source for more information about Go is the official web site `https://golang.org`
+
+- Documentation
+- `Go Programming Language Specification`
+- Standard packages
+
+The `Go blog` at `blog.golang.org` publishes some of the best writing on Go
+
+Go Playground at `play.golang.org`. The playground makes it convenient to perform simple experiments
+to check one's understanding of syntax, semantics, or library packages with short programs, and in many ways
+takes the place of a `read-eval-print-loop` (REPL) in other languages.
+
+Built atop the Playground, the `Go Tour` at `tour.golang.org` is a sequence of short interactive lessons
+on the basic ideas and constructions of `Go`, an orderly walk through the language.
+
+Since `Go` is an open-source project, you can read the code for any type or function in the standard
+library online at `https://golang.org/pkg`; the same code is part of the downloaded distribution.
+
+Use this to figure out how something works, or to answer questions about details,
+or merely to see how experts write really good `Go`.
