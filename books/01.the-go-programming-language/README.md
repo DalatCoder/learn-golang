@@ -548,3 +548,72 @@ by the `Scanner`.
 The second result of `os.Open` is a value of the built-in `error` type.
 
 If `err` equals the special `built-in` value `nil`, the file was opened successfully.
+
+`Close` closes the file and releases any resources.
+
+On the other hand, if `err` is not `nil`, something went wrong. Our simpole-minded error handling
+prints a message on the `standard error stream` using `Fprintf` and the verb `%v`, which displays a value
+of any type in a default format.
+
+Notice that the call to `countLines` precedes its declaration. Functions and other `package-level` entities
+may be declared in `any order`.
+
+A `map` is a `reference` to the data structure created by `make`.
+
+When a map is passed to a function, the function receives a copy of the reference, so any changes
+the called function makes to the underlying data structure will be visible through the caller's map
+`reference` too.
+
+The versions of `dup` above operate in a `streaming` mode in which input is `read` and `broken` into 
+lines as `needed`, so in principle these programs can handle an arbitrary amount of input.
+
+An alternative approach is to read the `entire` input into `memory` in one big gulp, split it into lines
+all at once, then process the lines.
+
+The following version, `dup3`, operates in that fashin. It introduces the function `ReadFile` 
+(from the `io/ioutil` package), which reads the entire contents of a named file, 
+and `strings.Split`, which splits a string into a `slice` of `substrings`.
+
+`Split` is the opposite of `strings.Join`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "os"
+    "strings"
+)
+
+func main() {
+    counts := make(map[string]int)
+    
+    for _, filename := range os.Args[1:] {
+        data, err := ioutil.ReadFile(filename)
+        
+        if err != nil {
+            _, err := fmt.Fprintf(os.Stderr, "dup3: %v\n", err)
+            if err != nil {
+                continue 
+            }
+            continue
+        }
+        
+        for _, line := range strings.Split(string(data), "\n") {
+            counts[line]++
+        }
+        
+        for line, n := range counts {
+            fmt.Printf("%d\t%s", n, line)
+        }
+    }
+}
+```
+
+`ReadFile` returns a `byte slice` that must be converted into a `string` so it can be split by `strings.Split`.
+
+Under the covers, `bufio.Scanner, ioutil.ReadFile and ioutil.WriteFile` use the `Read` and `Write` methods
+of `*os.File`, but it's rare that most programmers need to access those `lower-level` routines directly.
+
+The `higher-level` functions like those from `bufio` and `io/ioutil` are easier to use.
