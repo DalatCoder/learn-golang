@@ -356,3 +356,66 @@ fmt.Println(os.Args[1:])
 
 The output of this statement is like what we would get from `strings.Join`, but with surrounding brackets.
 `Any slice may be printed this way`.
+
+### 3.3. Finding Duplicate Lines
+
+Programs for file `copying, printing, searching, sorting, counting`, and the like all have a similar structure
+
+- `a loop over` the input
+- some `computation` on each element
+- generationi of output on the fly or at the end
+
+We'll show three variants of a program called `dup`; it is partly inspired by the Unix `uniq` command, which
+looks for adjacent duplicate lines.
+
+The first version of `dup` prints each line that appears more than once in the standard input,
+preceded by its count. This program introduces the `if` statement, the `map` data type, and the `bufio` package.
+
+```go
+package main
+
+import (
+ "bufio"
+ "fmt"
+ "os"
+)
+
+func main() {
+ counts := make(map[string]int)
+ input := bufio.NewScanner(os.Stdin)
+
+ for input.Scan() {
+  counts[input.Text()]++
+ }
+
+ // NOTE: ignoring potential errors from input.Err()
+ for line, n := range counts {
+  if n > 1 {
+   fmt.Printf("%d\t%s\n", n, line)
+  }
+ }
+}
+```
+
+As with `for`, parentheses are never used around the condition in an `if` statement, but braces are required for the body.
+There can be optional `else` part that is executed if the condition is `false`.
+
+A `map` holds a set of `key/value` pairs and provides `constant-time` operations to store, retrieve,
+or test for an item in the `set`.
+
+- The `key` may be of any type whose values can compared with `==`, `strings` being the most `common example`.
+- The `value` may be of any type at all.
+
+In this example, the `keys` are `strings` and the `values` are `ints`.
+
+The `built-in` function `make` creates a `new empty map`; it has other uses too.
+
+Each time `dup` reads a line of input, the line is used as a `key` into the `map` and the
+corresponding value is incremented.
+
+The statement `counts[input.Text()]++` is equivalent to these two statements
+
+```go
+line := input.Text()
+counts[line] = counts[line] + 1
+```
