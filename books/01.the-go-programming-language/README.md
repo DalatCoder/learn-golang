@@ -96,7 +96,7 @@ These tools are accessed through a single command called `go` that has a number 
   - links it with libraries
   - runs the resulting `executable` file.
 
-  `go run helloworld.go`
+                `go run helloworld.go`
 
 `Go` natively handles `Unicode`.
 
@@ -183,3 +183,176 @@ declarations as needed. it is not part of the `standard` distribution but you ca
 ```sh
 go get golang.org/x/tools/cmd/goimports
 ```
+
+### 3.2. Command-Line Arguments
+
+The `os` package provides function sand othre values for `dealing with the operatating system` in a `platform-independent` fashion.
+
+Command-line arguments are aviable to a program in a variable named `Args` that is part of the `os` package; thus its name
+anywhere outside the `os` package is `os.Args`.
+
+The variable `os.Args` is a `slice` of strings.
+
+Slices are a fundamental notion in `Go`. For now, think of a `slice` as a deynamically sized sequence `s` of
+array elements where individual elements can be accessed as `s[i]` and a contiguous subsequence as `s[m:n]`.
+
+The number of elemts is given by `len(s)`.
+
+All indexing in `Go` uses `half-open` intervals that include the first index but exclulde the last,
+because it simplifies logic. For example, the slice `s[m:n]`, where `0 <= m <= n <= len(s)`, contains `n-m` elements.
+
+The first element of `os.Args`, `os.Args[0]`, is the name of the command itself; the other elements are the arguments that
+were presented to the program when it started execution.
+
+We can get those in the slice `os.Args[1:len(os.Args)]`.
+
+If `m` or `n` is omitted, it defaults to `0` or `len(s)` respectively, so we can abbreviatet the desired `slice` as `os.Args[1:]`
+
+Here's an implementation of the `Unix echo` command, which prints its command-line arguments on a single line.
+
+```go
+package main
+
+import (
+ "fmt"
+ "os"
+)
+
+func main() {
+ var s, sep string
+
+ for i := 1; i < len(os.Args); i++ {
+  s += sep + os.Args[i]
+  sep = " "
+ }
+
+ fmt.Println(s)
+}
+```
+
+Comments begin with `//`.
+
+By convention, we describe each package in a comment immediately preceding its package
+declaration; for a `main package`, this comment is one or more complete esntences that describe the program as a whole.
+
+The `var` declaration decalers two variables `s` and `sep`, of type `string`.
+
+A variable can be initialized as part of its declaration.
+
+If it is not explicitly initialized, it is implicitly initialized to the `zero value` for its type:
+
+- `0` for numberic types
+- `''` for strings.
+
+The `+` operator is using for `concatenates` the values.
+
+The statement we used in the program: `s += sep + os.Args[i]` is an `assignment statement` that concatenates
+the old value of `s` with `sep` and `os.Args[i]` and assigns it back to `s`; it is equivalent to
+`s = s + sep + os.Args[i]`.
+
+The operator `+=` is an `assignment operator`.
+
+The `:=` symbol is part of a `short variable declaration`, a statement that decalres one or more variables and gives them
+`appropriate` types based on the `initializer values`.
+
+The increment statement `i++` adds 1 to `i`; it's equivalent to `i += 1` which is in turn equivalent to `i = i + 1`.
+These are statements, not expressions as they are in most languages in the `C family`
+
+- `j = i++` is `illegal`
+- they are postfix only, so `--i` is not legal either
+
+The `for loop` is the only loop statement in `Go`. It has a number of forms, one of which is illustrated here
+
+```go
+for initialization; condition; post {
+  // zero or more statements
+}
+```
+
+Any of these parts may be omitted. If there is no `initializationi` and no `post`, the semicolons may also be omitted
+
+```go
+// a tranditional "while" loop
+
+for condition {
+  // ...
+}
+```
+
+It the condition is omitted entirely in any of these forms, for example in
+
+```go
+// a traditional infinite loop
+
+for {
+  // ...
+}
+```
+
+the loop is `infinite`, though loops of this form may be terminated in some other way, like
+a `break` or `return` statement.
+
+Another form of the `for loop` iterates `over a range` of values from a data type like a `string` or a `slice`. To illustrate, here's a second version of `echo`:
+
+```go
+package main
+
+import (
+ "fmt"
+ "os"
+)
+
+func main() {
+ s, sep := "", ""
+
+ for _, arg := range os.Args[1:len(os.Args)] {
+  s += sep + arg
+  sep = " "
+ }
+
+ fmt.Println(s)
+}
+```
+
+In each iteration of the `loop`, `range` produces a `pair of values`
+
+- the `index`
+- the `value`
+
+of the element at that index.
+
+In this example, we don't need the `index`, but the syntax of a `range` loop requires that if
+we deal with the element, we must deal with the `index` too.
+
+One idea would be to assign the index to an obviously temporary variable like `temp` and ignore its value.
+
+The solution is to use the `blank identifier`, whose name is `_`.
+
+There are several ways to declare a string variable; these are all equivalent
+
+- `s := ""`: A short variable decalration, is the most compact, but it `may be used only within a function, not for package-level variables`.
+- `var s string`: relies on default initialization to the `zero value` for strings, which is `""`
+- `var s = ""`: rarely used except when declaring multiple variables
+- `var s string = ""`: explicit about the variable's type
+
+Each time around the loop, the string `s` gets completely new contents. The old contents of `s` are no longer in use, so
+they will be `garbage-collected` in due course.
+
+If the amount of data involved in large, this could be `costly`. A simpler and more efficient solution
+would be to use the `Join` function from the `strings` package:
+
+```go
+func main() {
+  fmt.Println(strings.Join(os.Args[1:], " "))
+}
+```
+
+Finally if we don't care about format but just want to see the values perhaps for debugging, we can let `Println`
+format the results for us:
+
+```go
+fmt.Println(os.Args[1:])
+```
+
+The output of this statement is like what we would get from `strings.Join`, but with surrounding brackets.
+`Any slice may be printed this way`.
