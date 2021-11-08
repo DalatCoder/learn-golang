@@ -1,4 +1,4 @@
-# The Go Programming Language 
+# The Go Programming Language
 
 > Go is an open source programming language that makes it easy to build simple, reliable and
 > efficient software
@@ -28,7 +28,7 @@ Each example is identified by its package import path and may be conventiently f
 and installed using the `go get` command. You'll need to choose a directory to be your `Go workspace`
 and set the `GOPATH` environment variable to point to it.
 
-The `go` tool will create the directory if neccessary. 
+The `go` tool will create the directory if neccessary.
 
 ```sh
 export GOPATH=$HOME/gobook
@@ -76,46 +76,46 @@ This chapter is a tour of the basic components of `Go`.
 ### 3.1. Hello, World
 
 ```go
-package main 
+package main
 
 import "fmt"
 
 func main() {
-	fmt.PrintLn("Hello")
+ fmt.PrintLn("Hello")
 }
 ```
 
-`Go` is a compiled language. The `Go` toolchain converts a source program and the things it depends on 
+`Go` is a compiled language. The `Go` toolchain converts a source program and the things it depends on
 into intrstructions in the native machine language of a computer.
 
 These tools are accessed through a single command called `go` that has a number of subcommands.
 
-- `go run`: 
-	
-	- compiles the source code from one or more source files whose names end in `.go`
-	- links it with libraries
-	- runs the resulting `executable` file.
+- `go run`:
 
-	`go run helloworld.go`
+  - compiles the source code from one or more source files whose names end in `.go`
+  - links it with libraries
+  - runs the resulting `executable` file.
+
+  `go run helloworld.go`
 
 `Go` natively handles `Unicode`.
 
 - `go build`:
 
-	- `go build helloworld.go`
-	
-	- compiles source
-	- save the compiles for later use
-	- creates an `executable` binary file
-	- can be run with: `./helloworld`
+  - `go build helloworld.go`
+
+  - compiles source
+  - save the compiles for later use
+  - creates an `executable` binary file
+  - can be run with: `./helloworld`
 
 `Go` code is organized into `packages`, which are similar to `libraries` or `modules` in other languages.
 
-A `package` consists of one or more `.go` source files in a `single directory` that define what the `packages` 
+A `package` consists of one or more `.go` source files in a `single directory` that define what the `packages`
 does.
 
 Each `source file` begins with a `package declaration`, here `package main`, that states which `package` the
-file `belongs to`, followed by `a list` of other `packages` that it `imports`, and then the 
+file `belongs to`, followed by `a list` of other `packages` that it `imports`, and then the
 `declarations` of the program that are stored in that file.
 
 The `Go standard library` has over `100 packages` for common tasks like input and output, sorting, and text
@@ -126,44 +126,44 @@ manipulation.
 - printing formatted output
 - scanning input
 - `PrintLn` is one of the basic `output functions` in `fmt`
-	
-	- Prints one or more values
-	- Seperated by spaces
-	- Newline character at the end
+
+  - Prints one or more values
+  - Seperated by spaces
+  - Newline character at the end
 
 - `Package main is special`
 
-	- `define` a standalone `executable` program, `not a library`
-	- `function main`
+  - `define` a standalone `executable` program, `not a library`
+  - `function main`
 
-		- where the execution of the program begins
-		- whatever `main` does is what the program does
-		- `main` will normally call upon functions in other packages to do much of the work
+    - where the execution of the program begins
+    - whatever `main` does is what the program does
+    - `main` will normally call upon functions in other packages to do much of the work
 
 `import` declaration
 
-	- what packages are needed by this source file
-	
+- what packages are needed by this source file
+
 You must import exactly the `packages` you need. A programm `will not` compile if there are missing
 imports or if there are unneccessary ones.
 
 This strict requirements prevents references to unused packages from accummulating as programs evolve.
 
-Order 
+Order
 
 - `package` declaration
-- `package` declaration
+- `import` declaration
 - declaration of `functions - func`, `variables - var`, `constants - const`, and `types - type`
 
-A function declaration consists of 
-	
+A function declaration consists of
+
 - keyword `func`
-- the name of the function 
+- the name of the function
 - a parameter list (`empty for main`)
 - a result list (`empty for main`)
 - the body of the function
 
-`Go` `does not` require `semicolons` at the ends of statements or declarations, `except` where two 
+`Go` `does not` require `semicolons` at the ends of statements or declarations, `except` where two
 or more `appear on the same line`.
 
 In effect, newlines following certain tokens are converted into `semicolons`, so where newlines
@@ -175,9 +175,9 @@ The `gofmt` tool rewrites code into the `standard format`, and the `go` tool's `
 `gofmt` to all the files in the specified `package`, or the ones in the current directory by default.
 
 Many text editors can be configured to run `gofmt` each time you save a file, so that your source code
-is always properly formatted. 
+is always properly formatted.
 
-A related tool, `goimports`, additionally manages the `insertion` and `removal` of import 
+A related tool, `goimports`, additionally manages the `insertion` and `removal` of import
 declarations as needed. it is not part of the `standard` distribution but you can obtain it with this command
 
 ```sh
