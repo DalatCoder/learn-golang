@@ -709,3 +709,56 @@ A `struct`
 - can be accessed using `dot notation`
 
 The type of `out` is `io.Writer`, which lets us write to a wide range of possible destinations.
+
+### 3.5. Fetching a URL
+
+Go provides a collection of packages, grouped under `net`, that make it easy to send
+and receive information through the `Internet`, make `low-level` network connections, 
+and set up serers, for which `Go`'s concurrency features are particularly useful.
+
+
+```go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "net/http"
+    "os"
+)
+
+func main() {
+    for _, url := range os.Args[1:] {
+        response, err := http.Get(url)
+        
+        if err != nil {
+            fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
+            os.Exit(1)
+        }
+        
+        b, err := ioutil.ReadAll(response.Body)
+        response.Body.Close()
+        
+        if err != nil {
+            fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
+            os.Exit(1)
+        }
+        
+        fmt.Printf("%s", b)
+    }
+}
+```
+
+`http.Get`
+  
+  - makes `HTTP` request
+  - return the result in the response `struct` `resp`
+  - `Body` field contains the server response as a `readable stream`
+  - `Close` to avoid leaking resources
+
+`ioutil.ReadAll`
+  
+  - read the entire response
+  - store result in `b`
+
+`Printf` writes the `response` to the `standard ouput`
