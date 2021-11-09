@@ -865,3 +865,38 @@ func fToC(f float64) float64 {
   return (f - 32) * 5 / 9
 }
 ```
+
+### 4.3. Variables 
+
+`var`
+
+- create a `variable`
+- particular `type`
+- attachs a name
+- initialize value
+- `var name type = expression`
+- `type` or the `= expression` part may be omitted, but `not both`
+
+
+`type is omitted`: automatically determined by the `initializer expression`
+
+`expression is omitted`
+
+- initial value is the `zero value` for the `type`
+
+  - `0` for number
+  - `false` for boolean
+  - `""` for string
+  - `nil` for `interface` and `reference` type: `slice, pointer, map, channel, function`
+
+The `zero-value` mechanism ensures that a variable always holds a `well-defined` value of its type.
+In `Go`, there is no such thing as `an unitialized variable`.
+
+`Package-level` variables are initialized before `main` begins
+
+```go
+var i, j, k int // int, int, int
+var b, f, s = true, 2.3, "four" // bool, float64, string
+
+var f, err = os.Open(name) // os.Open returns a file and an error
+```
