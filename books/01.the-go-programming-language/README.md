@@ -942,3 +942,83 @@ A `short variable declaration` does not `neccessarily declare` all the variables
 
 If some of them were already declared in the `same lexical block`, then the `short variable` declaration acts
 like an `assignment` to those variables
+
+### 4.3.2. Pointers
+
+> A variable is a piece of storage containing a value
+
+Variables craeted by declarations are identified by a name, such as `x`.
+
+> A `pointer` value is the `address` of a variable.
+
+A pointer is thus the location at which a value is stored. Not every value has an address, 
+but every `variable does`.
+
+With a pointer, we can read or update the value of a `variable` `indirectly`, without using or even knowing the `name`
+of the `variable`, if indeed it has a name.
+
+If a variable is declared `var x int`
+
+- the expression `&x` (address of `x`) yields a `pointer` to an `integer variable`
+- a value of type `*int`, which is pronouced `pointer to int`
+- if this value is called `p`, we say `p points to x` or equivalently `p contains the address of x`
+- the variable to which `p` points is written `*p` 
+- the expression `*p` yields the value of that variable, an `int`, but since `*p` denotes a variable, it may also appear
+on the left-hand side of an assignment, in which case the assignment updates the variable
+
+```go
+x := 1
+p := &          // p, of type *int, points to x
+fmt.Println(*p) // 1
+*p = 2          // equivalent to x = 2
+fmt.Println(x)  // 2
+```
+
+> Variable are sometimes described as `addressable values`. 
+
+Expressions that denote variables are the only expression to which the `address-of` operator `&` may be applied.
+
+The `zero value` for a `pointer` of any type is `nil`. The test `p != nil` is `true` if `p points to a variable`.
+
+`Pointers are comparable`; two pointers are equal if and only if they point to the `same variable` or `both are nil`
+
+```go
+var x, y int
+fmt.Println(&x == &x, &x == &y, &x == nil) // true false false
+```
+
+It is perfectly safe for a `functioin to return the address of a local variable`. 
+
+```go
+var p = f()
+
+func f() *int {
+  v := 1
+  return &v
+}
+```
+
+The `local` variable `v` created by this particular call to `f` will remain in `existence` even after the call has returned,
+and the `pointer` `p` will still refer to it.
+
+Each call of `f` returns a distinct value
+
+```go
+fmt.Println(f() == f()) // false
+```
+
+Because a `pointer contains the address of a variable`, passing a pointer argument to a function makes
+it possible for the function to update the variable that waws indirectly passed.
+
+```go
+func incr(p *int) int {
+  *p++ // increments what p points to; does not change p
+  return *p
+}
+
+v := 1
+incr(&v) // side effect: v is now 2
+fmt.Println(incr(&v)) // 3
+```
+
+Each time we take the address of a variable or copy a `pointer`, we create new `aliases` or `ways to identify the same variable`.
