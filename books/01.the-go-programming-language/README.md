@@ -617,3 +617,95 @@ Under the covers, `bufio.Scanner, ioutil.ReadFile and ioutil.WriteFile` use the 
 of `*os.File`, but it's rare that most programmers need to access those `lower-level` routines directly.
 
 The `higher-level` functions like those from `bufio` and `io/ioutil` are easier to use.
+
+### 3.4. Animated GIFs
+
+```go
+package main
+
+import (
+    "image"
+    "image/color"
+    "image/gif"
+    "io"
+    "math"
+    "math/rand"
+    "os"
+)
+
+var palette = []color.Color{color.White, color.Black}
+
+const (
+    whiteIndex = 0 // first color in palette
+    blackIndex = 0 // next color in palette
+)
+
+func main() {
+    lissajous(os.Stdout)
+}
+
+func lissajous(out io.Writer) {
+    const (
+        cycles = 5 // number of complete x oscillator revolutions
+        res = 0.001 // angular resolution
+        size = 100 // image canvas covers [-size ... +size]
+        nframes = 64 // number of animation frames
+        delay = 8 // delay between frames in 10ms unit
+    )
+    
+    freq := rand.Float64() * 3.0 // relative frequency of y oscillator
+    anim := gif.GIF{LoopCount: nframes}
+    phase := 0.0 // phase difference
+    
+    for i := 0; i < nframes; i++ {
+        react := image.Rect(0, 0, 2 * size + 1, 2 * size + 1)
+        img := image.NewPaletted(react, palette)
+        
+        for t := 0.0; t < cycles*2*math.Pi; t += res {
+            x := math.Sin(t)
+            y := math.Sin(t*freq + phase)
+            
+            img.SetColorIndex(size + int(x * size + 0.5), size + int(y * size + 0.5), blackIndex)
+        }
+        
+        phase += 0.1
+        anim.Delay = append(anim.Delay, delay)
+        anim.Image = append(anim.Image, img)
+    }
+
+    err := gif.EncodeAll(out, &anim)
+    if err != nil {
+        return 
+    }
+}
+```
+
+
+When importing a package whose path has multiple components, like `image/color`, we refer to the package with a name 
+that comes from the last component.
+
+`const` declaration
+
+- constants
+- fixed values at the compile time
+- appear at package level (visible throughout the package)
+- within a function (visible only within that function)
+- the values must be a `number`, `string`, or `boolean`
+
+`composite literals`
+
+- a compact notation for instantiating any of `Go`'s composite types from a sequence of element values
+
+- `[]color.Color{...}`: initialize a `slice`
+- `gif.GIF{...}`: initialize a `struct`
+ 
+
+A `struct`
+
+- group of values called `fields`
+- collected togehter in a `single object`
+- can be treated as a `unit`
+- all the fields have the `zero value` for their type
+- can be accessed using `dot notation`
+
+The type of `out` is `io.Writer`, which lets us write to a wide range of possible destinations.
