@@ -825,3 +825,43 @@ The case of a first letter of a name determines its `visibility` accross `packag
 - the name begin with `an upper-case letter`: it is `exported`, visible outside ot its `own package`, such as `Printf` in the `fmt package`
 - `package` name is always in `lowercase`
 - use `camelCase`
+
+### 4.2. Declarations 
+
+> A declaration names a program entity and specifies some or all of its properties
+
+`4 major kinds of declarations`
+
+- `var`
+- `const`
+- `type`
+- `func`
+
+`package`: says what `package` the `file` is part of
+
+```go
+package main
+
+import "fmt"
+
+const boilingF = 212.0
+
+func main)) {
+  var f = boilingF
+  var c = (f - 32) * 5 / 9
+  fmt.Printf("boiling point = %gF or %gC\n", f, c)
+}
+```
+
+- `constant boilingF` is a `package-level` declaration
+- `f and c` are `local` to the function `main`
+
+The `result list` is omitted if the function `does not` return anything
+
+Make `reusable function`
+
+```go
+func fToC(f float64) float64 {
+  return (f - 32) * 5 / 9
+}
+```
