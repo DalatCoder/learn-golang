@@ -900,3 +900,45 @@ var b, f, s = true, 2.3, "four" // bool, float64, string
 
 var f, err = os.Open(name) // os.Open returns a file and an error
 ```
+
+### 4.3.1. Short Variable Declarations 
+
+> Used to declare and initializ local variables.
+
+> Form: `name := expression`
+
+- type of `name` is determined by the type of `expression`
+
+Because of their brevity and flexibility, `short variable declarations` are used to declare and initialize 
+the `majority of local variables`.
+
+A `var` declaration tends to be reserved for `local variables` that need an `explicit type that differs` from that of the `initializer expression`
+
+```go
+i := 100 // an int
+var boiling float 64 = 100 // a float64
+
+var names []string
+var err error
+var p Point
+```
+
+Multiple variables
+
+```go
+i, j := 0, 1
+```
+
+Keep in mind that `:=` is a `declaration`, whereas `=` is an `assignment`
+
+A `multi-variable` declaration should not be `confused` with a `tuple assignment`, in which
+each variable on the `left-hand` side is `assigned` the `corresponding` value from the `right-hand` side
+
+```go
+i, j = j, i // swap values of i and j
+```
+
+A `short variable declaration` does not `neccessarily declare` all the variables on its `left-hand` side. 
+
+If some of them were already declared in the `same lexical block`, then the `short variable` declaration acts
+like an `assignment` to those variables
