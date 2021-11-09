@@ -762,3 +762,66 @@ func main() {
   - store result in `b`
 
 `Printf` writes the `response` to the `standard ouput`
+
+## 4. Program Structure 
+
+One builds large programs from a small set of basic constructs
+
+- variables store values
+- simple expressions are combined into larger ones with operatiionis lke addition and substrction
+- basic types are collected into aggregate like `arrays` and `structs`
+- expressions are used in statements whose execution order is determined by `control-flow` statements like `if` and `for`
+- statements are grouped into functions for `isolation and reuse`
+- `functions` are gathered into `source files` and `packages`
+
+### 4.1. Names
+
+- a name begins with a letter
+- underscore
+- case matters
+
+`constants`
+
+- `true`
+- `false`
+- `iota`
+- `nil`
+
+`types`
+
+- `int`
+- `uint`
+- `uintptr`
+- `bool`
+- `byte`
+- `rune`
+- `string`
+- `error`
+
+
+`functions`
+
+- `make`
+- `len`
+- `cap`
+- `new`
+- `append`
+- `copy`
+- `close`
+- `delete`
+- `complex`
+- `real`
+- `imag`
+- `panic`
+- `recover`
+
+An entity is declared
+
+- `within a function`: it is `local` to that function
+- `outside function`: visible in all files of the `package` to which it `belongs`
+
+The case of a first letter of a name determines its `visibility` accross `package boundaries`
+
+- the name begin with `an upper-case letter`: it is `exported`, visible outside ot its `own package`, such as `Printf` in the `fmt package`
+- `package` name is always in `lowercase`
+- use `camelCase`
