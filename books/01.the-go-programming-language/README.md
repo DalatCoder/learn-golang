@@ -1022,3 +1022,5 @@ fmt.Println(incr(&v)) // 3
 ```
 
 Each time we take the address of a variable or copy a `pointer`, we create new `aliases` or `ways to identify the same variable`.
+
+### 4.3.3. The `new` function
