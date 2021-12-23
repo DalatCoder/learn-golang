@@ -106,3 +106,46 @@ Go to `godoc.org`
 Both `go.mod` and `go.sum` should be checked into version control
 
 Upgrade dependencies
+
+## 1. Variables, Values and Types
+
+Every program must to have package `main`
+
+```go
+package main
+
+func main()  {
+
+}
+```
+
+`func main` is the entry point of the program
+
+Control flow 
+
+- (1) sequence
+- (2) loop: iterative
+- (3) conditional
+
+```go
+package main
+
+import "fmt"
+
+func main()  {
+  fmt.Println("Hello World")
+
+  foo()
+
+  for i := 0; i < 100; i++ {
+    if i % 2 == 0 {
+      fmt.Println(i)
+    }
+  }
+
+}
+
+func foo() {
+  fmt.Println("I'm in foo")
+}
+```
