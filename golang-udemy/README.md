@@ -284,3 +284,34 @@ Look at the `golang` spec for `zero` value.
 - float: 0.0
 - string: ""
 - pointers, functions, interfaces, slices, channels, map: nil
+
+### 1.4. Exploring types (continue)
+
+- Declare a variable is of a certain type it can only hold values of that type
+
+- `primitive data types`
+
+  - In computer science, primitive data type is either of the following:
+
+    - `a basic type` is a data type provided by a programming language as a basic building block. Most languages allow more complicated `composite` types to be constructed starting from basic types.
+    - `a built in type` is a data type for which the programming language language provides built-in support.
+
+  - In most programming languages, all basic data types are built-in. In addition, many languages also provide a set of composite data types. Opinions vary as to whether a built-in type that is not basic should be considered "primitive".
+
+- `composite data types`
+  - In computer science, a `composite data type` or `compound data type` is any data type which can be constructed in a program using the programming lanuage's primitive data types and other composite types. It is sometimes called a `structure` or `aggregate data type`.
+
+```go
+package main
+
+import "fmt"
+
+var y = 42
+var z = "tronghieu"
+var a = `"tronghieu"`
+
+func main() {
+  fmt.Printf("%T\n", y)
+  fmt.Printf("%T\n", z)
+}
+```
