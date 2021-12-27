@@ -121,7 +121,7 @@ func main()  {
 
 `func main` is the entry point of the program
 
-Control flow 
+Control flow
 
 - (1) sequence
 - (2) loop: iterative
@@ -149,3 +149,67 @@ func foo() {
   fmt.Println("I'm in foo")
 }
 ```
+
+basic program structure
+
+- package `main`
+- func `main`
+
+  - entrypoint to your program
+  - when your code exits func `main`, your program is over
+
+### 1.1. Introduction to packages
+
+talk about packages and modularize in your code.
+
+We organize our data or information n a computer with folders. In a program, we use packages
+
+`https://godoc.org/fmt`
+
+Look at the documentation of `fmt` packages
+
+Signature of one method:
+
+- `func Println(a ...interface{}) (n int, err error)`
+
+Here we have an empty `inteface`, which means they'll take a value of any type and an unlimitted number of them
+
+```go
+fmt.Println("Hello world", 42, true);
+```
+
+Catch up returns values
+
+```go
+n, err := fmt.Println("Hello world", 42, true);
+fmt.Println(n) // number of bytes
+fmt.Println(err) // nil
+```
+
+Throw away the return by using underscore `_`
+
+```go
+n, _ := fmt.Println("Hello world", 42, true);
+fmt.Println(n) // number of bytes
+```
+
+Summary
+
+- variadic parameters:
+  - the `...<some type>` is how we signify a `variadic parameter`
+  - the type `interface{}` is the empty `interface`
+    - everything is of type `interface{}`
+  - so the parameter `...interface{}` means `give me as many arguments of any type as you'd like`
+- throwing away returns
+  - use the `_` character to throw away returns
+- you can't have unused variables in your code
+  - this is code pollution
+  - the compiler doesn't allow it
+- we use this notation in `go`
+  - `package`.`Identifier`
+    - ex: `fmt.Println()`
+      - we would read that: "From package `fmt` I am using the `Println` func"
+- An identifier is a name of the variale, constant, func
+- packages
+  - code that is already written which you can use
+  - `import`
