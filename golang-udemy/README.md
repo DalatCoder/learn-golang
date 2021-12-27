@@ -259,3 +259,28 @@ Summary
   instruction that commands the computer to perform a specificed action. A program is formed by a sequence of one or more statements.
 
 - expression: in programming an expression is a combination of one or more explicit values, constants, variables, operators, and functions that the programming language interprets and produce another value. For example, 2 + 3 is an expression which evalute to 5.
+
+### 1.3. Exploring types
+
+- Declare a variable and assign a value at the same time: `x := 42` (short declaration operator)
+- Declare variable with `var`
+
+```go
+var y = 43
+fmt.Println(y)
+```
+
+When we want to declare a variable outside of a function body, we use `var`. Otherwise, we use short declaration syntax.
+
+And, declare there is a variable with the identifier `z` and that the variable with the identitier z is of type int, assign the zero value
+of type int to `z`
+
+`var z int`
+
+Look at the `golang` spec for `zero` value.
+
+- boolean: false
+- integer: 0
+- float: 0.0
+- string: ""
+- pointers, functions, interfaces, slices, channels, map: nil
