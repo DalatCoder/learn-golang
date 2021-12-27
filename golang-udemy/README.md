@@ -213,3 +213,49 @@ Summary
 - packages
   - code that is already written which you can use
   - `import`
+
+### 1.2. Short declaration operator
+
+Look at `go spec`
+
+- Identifiers name program entities such as variables and types. An identifier is a sequence of one or more letters and digits. The first character in an identifier must be a letter.
+
+`identifier = letter { letter | unicode_digit } . `
+
+Read more about `ebnf` for this syntax.
+
+Keyword: the word that are reversed and may not be used as identifiers.
+Operator and punctuation
+
+Short declaration opertor
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  x := 42
+  fmt.Println(x)
+
+  x = 99
+  fmt.Println(x)
+
+  y := 100 + 24
+  fmt.Println(y)
+}
+```
+
+It declares a variable `x` and assign value of `42` to it.
+When we want to assign a new value, we just use the assign operator for this `=`.
+
+Summary
+
+- keywords:
+- operator:
+- operand:
+- statement:
+  In programming, a statement is the smallest standalone element of a program that expresses some action to be carried out. It is an
+  instruction that commands the computer to perform a specificed action. A program is formed by a sequence of one or more statements.
+
+- expression: in programming an expression is a combination of one or more explicit values, constants, variables, operators, and functions that the programming language interprets and produce another value. For example, 2 + 3 is an expression which evalute to 5.
