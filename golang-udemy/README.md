@@ -370,3 +370,9 @@ func main() {
 ```
 
 We create our own type called `hotdog` and the underlying type is an `int`
+
+### 1.7. Conversion, not casting
+
+```go
+a = int(b)
+```
