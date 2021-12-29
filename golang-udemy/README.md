@@ -315,3 +315,58 @@ func main() {
   fmt.Printf("%T\n", z)
 }
 ```
+
+### 1.5. Zero value
+
+Understand `zero value`
+
+- `false` for booleans
+- 0 for integers
+- 0.0 for floats
+- "" for strings
+- `nil` for
+
+  - pointers
+  - functions
+  - interfaces
+  - slices
+  - channels
+  - maps
+
+Use short declaration operator as much as possible
+Use `var` for
+
+- `zero` value
+- `package scope`
+
+### 1.6. Create your own types
+
+Go is all about types
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+var a int
+type hotdog int
+
+var b hotdog
+
+func main() {
+  a = 42
+
+  fmt.Println(a)
+  fmt.Printf("%T\n", a)
+
+  b = 42
+  fmt.Println(b)
+  fmt.Printf("%T\n", b) // main.hotdog
+
+  a = b // wrong
+}
+```
+
+We create our own type called `hotdog` and the underlying type is an `int`
