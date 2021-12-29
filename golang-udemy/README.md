@@ -376,3 +376,66 @@ We create our own type called `hotdog` and the underlying type is an `int`
 ```go
 a = int(b)
 ```
+
+## 2. Exercises number #1
+
+### 2.1. Exercises #1
+
+Using the short declaration operator, ASSIGN these VALUES to VARIABLES with the IDENTIFIERS "x" and "y" and "z"
+
+- 42
+- "James Bond"
+- true
+
+Now print the values stored in those variables using
+
+- a single print statement
+- multiple print statement
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  x := 42
+  y := "James Bond"
+  z := true
+
+  fmt.Println(x, y, z)
+}
+```
+
+### 2.2. Exercises #2
+
+Use var to DECLARE three variables. The variables should have package level scope.
+Do not assign VALUES to the variables. Use the following IDENTIFIERS for the
+variables and make sure the variables store values of following TYPE
+
+- identfier "x" type int
+- identifier "y" type string
+- identifier "z" type bool
+
+In func main
+
+- Print out the values for each identifier
+- The compiler assigned values to the variables. What are these values called?
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+var x int
+var y string
+var z bool
+
+func main() {
+  // zero values
+  fmt.Println(x) // 0
+  fmt.Println(y) // ""
+  fmt.Println(z) // false
+}
+```
