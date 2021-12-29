@@ -439,3 +439,66 @@ func main() {
   fmt.Println(z) // false
 }
 ```
+
+### 2.3. Exercises #3
+
+Using the code from the previous exercise,
+
+- at the package level scope, assign the following values to the three variables
+
+  - for x assign 42
+  - for y assign "James Bond"
+  - for z assign true
+
+- in func main
+  - use fmt.Sprintf to print all of the VALUES to one single string. ASSIGN the
+    returned value of TYPE string using the short declaration operator to a VARIABLE
+    with the IDENTIFIER "s"
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+var x int = 42
+var y string = "James Bond"
+var z bool = true
+
+func main() {
+  s := fmt.Sprintf("%v %v %v", x, y, z)
+  fmt.Println(s)
+}
+```
+
+### 2.4. Exercises #4
+
+- Create your own type. Have the underlying type be an `int`
+- Create a VARIABLE of your new TYPE with the IDENTIFIER "x" using the "VAR" keyword
+- in func main
+
+  - print out the value of the variable x
+  - print out the type of the variable x
+  - assign 42 to the VARABLE x using the = OPERATOR
+  - print out the value of variable x
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type nth int
+
+var x nth
+
+func main() {
+  fmt.Println(x)
+  fmt.Printf("%T\n", x)
+
+  x = 42
+  fmt.Println(x)
+}
+```
