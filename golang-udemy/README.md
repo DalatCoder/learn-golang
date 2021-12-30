@@ -789,3 +789,25 @@ func main() {
   fmt.Printf("%d\t\t%b", gb, gb)
 }
 ```
+
+## 4. Control Flow
+
+There is no `while` loop in `Go`
+
+`for` loop: `for init; condition; post`
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+
+  // for init; condition; post {}
+  for i := 0; i <= 10; i++ {
+    fmt.Println(i)
+  }
+}
+```
