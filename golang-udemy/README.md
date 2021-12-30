@@ -935,3 +935,28 @@ func main() {
 ```
 
 ### 4.6. Conditional logic operator (&& || !)
+
+## 5. Grouping data
+
+## 5.1. Array
+
+Arrays are useful when planning the detailed layout of memory and sometimes can help
+avoid allocation, but **primiarily they are a building block for slices**.
+**Use slices instead**
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  var x [3]int
+
+  fmt.Println(x) // [0, 0, 0]
+
+  x[2] = 1
+  fmt.Println(x) // [0, 0, 1]
+}
+```
