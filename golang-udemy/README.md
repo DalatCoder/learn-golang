@@ -1186,3 +1186,76 @@ for k, v in range m {
 ```go
 delete(m, "key")
 ```
+
+## 6. Structs
+
+A struct is a data structure which allows us to compose together values of different types
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type person struct {
+  first string
+  last string
+}
+
+func main() {
+  // We create a value of type person
+  p1 := person{
+    first: "Hieu",
+    last: "Nguyen"
+  }
+
+  // We create another value of type person
+  p2 := person{
+    first: "Ha",
+    last: "Nguyen"
+  }
+
+  fmt.Println(p1)
+  fmt.Println(p2)
+
+  fmt.Println(p1.first, p1.last)
+  fmt.Println(p2.first, p2.last)
+}
+```
+
+### 6.1. Embedded Structs
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type person struct {
+  first string
+  last string
+}
+
+type secretAgent struct {
+  person
+  kill int
+}
+
+func main() {
+  sa1 := secretAgent{
+    kill: 0,
+    person: person{
+      first: "Hieu",
+      last: "Nguyen"
+    }
+  }
+
+  fmt.Println(sa1)
+  fmt.Println(sa1.first, sa1.last, sa1.kill)
+
+  // When there is name collision
+  fmt.Println(sa1.person.first, sa1.first)
+}
+```
