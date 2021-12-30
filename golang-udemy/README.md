@@ -676,3 +676,46 @@ func main() {
   fmt.Println(f)
 }
 ```
+
+### 3.6. Iota
+
+Predeclare identifier
+
+Within a constant declaration, the predeclare identifier `iota` represents successive
+untyped integer constants. It is reset to 0 whenever the reserved word `const` appears
+in the source and increments after each `ConstSpect`. It can be used to construct a
+set of related constants.
+
+If you need something automatically increment by one.
+
+```go
+package main
+
+import "fmt"
+
+const (
+  a = iota
+  b = iota
+  c = iota
+)
+
+const (
+  d = iota
+  e
+  f
+)
+
+func main() {
+  fmt.Println(a) // 0
+  fmt.Println(b) // 1
+  fmt.Println(c) // 2
+  fmt.Printf("%T\n", a) // int
+  fmt.Printf("%T\n", b) // int
+  fmt.Printf("%T\n", c) // int
+
+  // Auto reset
+  fmt.Println(d) // 0
+  fmt.Println(e) // 1
+  fmt.Println(f) // 2
+}
+```
