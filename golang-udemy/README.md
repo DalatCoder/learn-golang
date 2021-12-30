@@ -527,3 +527,61 @@ func main() {
   fmt.Println(a == b)
 }
 ```
+
+### 3.2. How computers work
+
+- computers run on electricity
+- electricity can be ON or OFF
+- coding schemes
+  - assign meaning to ON or OFF state
+
+ON & OFF, 1 & 0, Binary Digits, Bits and Machine Language are all words used to refer to this
+idea that, within a computer , it's all nothing but a bunch of ZERO's and ONE's, or switches that are ON or OFF,
+it's all just a bunch of Binary Digits, or Bits, that's the language which computer speak,
+it's a machine language.
+
+Circuits, Switches, Transitors, and even "gates" are all words used to refer to this thing
+within a computer that can either be ON or OFF. It's a circuit, it's a switch, it's a gate
+that can either be OPENED or CLOSED, it's a transitor - you will learn that people use of all those
+words to talk about this same thing, this ability of computers to store ON/OFF states.
+
+### 3.3. Numeric types
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  x := 42
+  y := 42.45678
+
+  fmt.Println(x)
+  fmt.Printf("%T\n", x) // int
+  fmt.Println(y)
+  fmt.Printf("%T\n", y) // float64
+}
+```
+
+Summary
+
+- integers:
+
+  - numbers without decimals (whole number)
+
+- int & uint
+
+  - implementation-specific sizes
+
+- all numeric types are distinct except
+
+  - `byte` which is an alias for `uint8`
+  - `rune` which is an alias for `int32` (1 character in UTF8 need from 1 to 4 byte)
+
+- types are unique
+  - this is static programming language
+  - conversions are required when different numeric types are mixed in an
+    expression or assignment. For instance, `int32` and `int` are not the same type even though they
+    may have the same size on a particular architecture.
+- rule of thumb: just use `int`
+- floating point: `float64`
