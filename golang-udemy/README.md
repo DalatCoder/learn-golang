@@ -960,3 +960,23 @@ func main() {
   fmt.Println(x) // [0, 0, 1]
 }
 ```
+
+## 5.2. Slice
+
+Composite literal: `x := type{values}`.
+
+A SLICE allows you to group together VALUES of the same TYPE
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  x := []int{1, 2, 3, 4, 5}
+
+  fmt.Println(x) // [1 2 3 4 5]
+}
+```
