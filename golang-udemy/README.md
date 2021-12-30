@@ -1029,3 +1029,31 @@ func main() {
   fmt.Println(x[1:3])
 }
 ```
+
+### 5.2.3 Slice - Append
+
+`func append(slice []T, elements ...T) []T` where T is a placeholder for any given type
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  x := []int{1, 2, 3}
+  fmt.Println(x)
+
+  x = append(x, 4, 5, 6)
+  fmt.Println(x)
+
+  y := []int{7, 8, 9}
+  x = append(x, y...)
+  fmt.Println(x)
+}
+```
+
+`...` before the type in function signature: unlimited number of this type (`variadic`)
+
+`...` after the variable: destructure
