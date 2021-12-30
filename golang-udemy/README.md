@@ -502,3 +502,28 @@ func main() {
   fmt.Println(x)
 }
 ```
+
+## 3. Programming Fundamentals
+
+See more at Go language specification
+
+### 3.1. Boolean type
+
+```go
+package main
+
+import "fmt"
+
+var x bool
+
+func main() {
+  fmt.Println(x) // false
+
+  x = true
+  fmt.Println(x) // true
+
+  a := 7
+  b := 42
+  fmt.Println(a == b)
+}
+```
