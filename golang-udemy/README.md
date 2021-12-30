@@ -719,3 +719,73 @@ func main() {
   fmt.Println(f) // 2
 }
 ```
+
+### 3.7. Bit Shifting
+
+Two operator
+
+- `<<`
+- `>>`
+
+Example
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  // 100 = 4
+  x := 4
+  fmt.Printf("%d\t\t%b", x, x) // Decimal and binary
+
+  // 1000 = 8
+  y := x << 1
+  fmt.Printf("%d\t\t%b", y, y) // Decimal and binary
+}
+```
+
+Apply `iota` the creative way
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  kb := 1024
+  mb := 1024 * kb
+  gb := 1024 * mb
+
+  fmt.Printf("%d\t\t%b", kb, kb)
+  fmt.Printf("%d\t\t%b", mb, mb)
+  fmt.Printf("%d\t\t%b", gb, gb)
+}
+```
+
+Using `iota` for automatically calculate
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+const (
+  _ = iota
+  kb = 1 << (iota * 10)
+  mb = 1 << (iota * 10)
+  gb = 1 << (iota * 10)
+)
+
+func main() {
+  fmt.Printf("%d\t\t%b", kb, kb)
+  fmt.Printf("%d\t\t%b", mb, mb)
+  fmt.Printf("%d\t\t%b", gb, gb)
+}
+```
