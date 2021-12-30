@@ -833,3 +833,35 @@ func main() {
   }
 }
 ```
+
+### 4.3. For statement
+
+A `for` statement specifies repeated execution of a block. There are three forms
+
+- the iteration may be controlled by a single condition
+- a "for" clause
+- a "range" clause
+
+For statement with single condition
+
+```go
+for a < b {
+  a *= 2
+}
+```
+
+For statement with `for` clause
+
+```go
+for i := 1; i < 10; i++ {
+  fmt.Println(i)
+}
+```
+
+Infinite loop statement
+
+```go
+for {
+  // Listen for incomming request on TCP
+}
+```
