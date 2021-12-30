@@ -1263,3 +1263,24 @@ func main() {
 ### 6.2. Reading documentation
 
 A struct is a sequence of named elements, call `fields`, each of which has a `name` and a `type`.
+
+### 6.3. Anonymous Struct
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  p1 := struct {
+    first, last string
+  }{
+    first: "Hieu",
+    last: "Nguyen"
+  }
+
+  fmt.Println(p1)
+}
+```
