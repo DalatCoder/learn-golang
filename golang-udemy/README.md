@@ -1080,3 +1080,32 @@ func main() {
   x = append(x[:3], x[4:]...)
 }
 ```
+
+### 5.2.5 Slice - Make
+
+Create new slice
+
+- Composite literal
+- `make`
+
+When u create a slice, it's sitting on top of an array.
+
+Using `make` when we know the length of the underlying array. Avoiding recreate the underlying array
+every time we append new value to the slice.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  x := make([]int, 10, 100)
+  fmt.Println(x) // [0 0 0 0 0 0 0 0 0 0]
+  fmt.Println(len(x)) // length: 10
+  fmt.Println(cap(x)) // capacity: 100 - we have 100 slot in the underlying array to use
+
+  x = append(x, 11)
+  fmt.Println(len(x)) // length: 11
+  fmt.Println(cap(x)) // capacity: 100 - we have 100 slot in the underlying array to use
+}
+```
