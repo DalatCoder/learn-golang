@@ -980,3 +980,31 @@ func main() {
   fmt.Println(x) // [1 2 3 4 5]
 }
 ```
+
+### 5.2.1 Slice - for range
+
+If you're looping over an array, slice, string, or map, or reading from a channel, a `range` clause can manage
+the loop:
+
+```go
+  for key, value := range oldMap {
+    newMap[key] = value
+  }
+```
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  x := []int{1, 2, 3, 4, 5}
+  fmt.Println(len(x)) // 5
+
+  for i, v := range x {
+    fmt.Println(i, v)
+  }
+}
+```
