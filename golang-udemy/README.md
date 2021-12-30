@@ -865,3 +865,73 @@ for {
   // Listen for incomming request on TCP
 }
 ```
+
+### 4.4. If statement
+
+- bool : true / false
+- the not operator: !
+- initialization statement
+- if / else
+- if / else if / else
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  if true {
+    fmt.Println("001")
+  }
+
+  if false {
+    fmt.Println("001")
+  }
+
+  if !true {
+    fmt.Println("001")
+  }
+
+  if !false {
+    fmt.Println("001")
+  }
+
+  if x := 2; x % 2 == 0 {
+
+  }
+
+  fmt.Println(x) // error: x is not avaiable
+
+  if true {}
+  else if false {}
+  else {}
+}
+```
+
+### 4.5. Switch statement
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  variable := true
+
+  switch variable {
+    case false:
+      fallthrough
+    case true:
+      fallthrough
+    case "a", "b", "c":
+      fallthrough
+    default case  :
+  }
+}
+```
+
+### 4.6. Conditional logic operator (&& || !)
