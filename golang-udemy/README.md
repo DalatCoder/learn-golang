@@ -1,5 +1,10 @@
 # Golang Udemy
 
+- go doc
+- go effective
+- go spec
+- go playground
+
 ## Environment
 
 Go workspace
@@ -1057,3 +1062,21 @@ func main() {
 `...` before the type in function signature: unlimited number of this type (`variadic`)
 
 `...` after the variable: destructure
+
+### 5.2.4 Slice - Delete
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  x := []int{1, 2, 3, 4, 5, 6, 7}
+  fmt.Println(x)
+
+  // Delete 4
+  x = append(x[:3], x[4:]...)
+}
+```
