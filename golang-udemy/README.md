@@ -1132,3 +1132,57 @@ func main() {
   fmt.Println(xp)
 }
 ```
+
+### 5.3. Map
+
+Map are key - value store. Super efficient look up.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  m := map[string]int{
+    "Hieu": 1103,
+    "Ha": 2010
+  }
+
+  fmt.Println(m)
+  fmt.Println(m["Hieu"]) // 1103
+  fmt.Println(m["unknown"]) // zero value of int 0
+
+  v, ok = m["unknown"]
+  fmt.Println(v)
+  fmt.Println(ok)
+
+  if !ok {
+    fmt.Println("Key not found")
+  }
+
+  // Or
+  if v, ok = m["unknow"], ok {
+    fmt.Println("Exist: ", v)
+  }
+}
+```
+
+#### 5.3.1. Map - Add Element
+
+```go
+m["new"] = 1
+```
+
+#### 5.3.2. Map - Range
+
+```go
+for k, v in range m {
+  fmt.Println(k, v)
+}
+```
+
+#### 5.3.3. Map - Delete an entry
+
+```go
+delete(m, "key")
+```
