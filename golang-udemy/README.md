@@ -1259,3 +1259,7 @@ func main() {
   fmt.Println(sa1.person.first, sa1.first)
 }
 ```
+
+### 6.2. Reading documentation
+
+A struct is a sequence of named elements, call `fields`, each of which has a `name` and a `type`.
