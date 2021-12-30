@@ -632,3 +632,47 @@ func main() {
   }
 }
 ```
+
+### 3.5. Constants
+
+- A simple, unchanging value
+- Only exist at compile time
+- there are TYPED and UNTYPED constants
+
+  - `const hello = "Hello World"`
+  - `const typedHello string = "Hello Wolrd"`
+
+- Untyped constant
+  - a constant that does not have yet have a fixed type
+    - `constant of a kind`
+    - not yet forced to obey the strict rules that prevent combining differently typed values
+  - an untyped constant can be implicitily converted by the compiler
+
+```go
+package main
+
+import "fmt"
+
+const a = 42
+const b = 42.78
+const c = "James Bond"
+
+const (
+  d = 3
+  e = 3.14
+  f = "Hello"
+)
+
+func main() {
+  fmt.Println(a)
+  fmt.Println(b)
+  fmt.Println(c)
+  fmt.Printf("%T\n", a) // int
+  fmt.Printf("%T\n", b) // float64
+  fmt.Printf("%T\n", c) // string
+
+  fmt.Println(d)
+  fmt.Println(e)
+  fmt.Println(f)
+}
+```
