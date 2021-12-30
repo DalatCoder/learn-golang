@@ -1109,3 +1109,26 @@ func main() {
   fmt.Println(cap(x)) // capacity: 100 - we have 100 slot in the underlying array to use
 }
 ```
+
+### 5.2.6 Slice - Multidimensional
+
+Thinking like a spreadsheet (slice of slice)
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  jb := []string{"Hieu", "Ha"}
+  fmt.Println(jb)
+
+  mb := []string{"Nguyen", "Nguyen"}
+  fmt.Println(mb)
+
+  xp := [][]string{jb, mp}
+  fmt.Println(xp)
+}
+```
