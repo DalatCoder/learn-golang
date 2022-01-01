@@ -1649,3 +1649,34 @@ func main() {
   f(1)
 }
 ```
+
+### 7.9. Return a func
+
+Function `foo` return a `string` value
+
+Function `bar` return a `func` with the following signature: `func() int`
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  f := bar();
+  r := f();
+
+  fmt.Println(r)
+  fmt.Printf("%T\n", f) // func() int
+}
+
+func foo() string {
+  s := "Hello"
+  return s
+}
+
+func bar() func() int {
+  return func() int {
+    return 11;
+  }
+}
+```
