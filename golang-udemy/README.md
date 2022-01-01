@@ -1923,3 +1923,131 @@ Pointers allow you to share a value stored in some memory location. Use pointers
 - You want to change the data at a location
 
 Everything in Go is pass by value.
+
+### 8.3. Method `set`s
+
+When we have a `type`, we can `attach method` to it. (through `receiver`)
+
+A type may have a `method set` associated with it. The method set of an `interface type` is its interface.
+The method set of any other type `T` consists of all `methods` declared with `receiver type T`.
+
+The method set of the corresponding `pointer type *T` is the set of all `methods` declared with `receiver *T`
+or `T`(that is, it also contains the method set of `T`)
+
+The `method set` of a type determines the `interfaces` that the type `implements` and the methods that can be
+`called` using a `receiver` of that type.
+
+Summary
+
+Method sets determine what methods attach to a `TYPE`. It exactly what the name says, `what is the set of methods for a given type?`.
+That is its method set.
+
+- a NON-POINTER RECEIVER:
+
+  - works with values that are POINTERS or NON-POINTERS
+
+- a POINTER RECEIVER
+  - only works with values that are POINTERS
+
+| Receivers | Values    |
+| --------- | --------- |
+| (t T)     | T and \*T |
+| (t \*T)   | \*T       |
+
+Example
+
+#### 8.3.1. NON-POINTER receiver & NON-POINTER value
+
+```go
+package main
+
+import (
+  "fmt"
+  "math"
+)
+
+type circle struct {
+  radius float64
+}
+
+type shape interface {
+  area() float64
+}
+
+func (c circle) area() float64 {
+  return math.Pi * c.radius * c.radius
+}
+
+func info(s shape) {
+  fmt.Println("Area:", s.area())
+}
+
+func main() {
+  c := circle{5}
+  info(c)
+}
+```
+
+#### 8.3.2. NON-POINTER receiver & POINTER value
+
+```go
+package main
+
+import (
+  "fmt"
+  "math"
+)
+
+type circle struct {
+  radius float64
+}
+
+type shape interface {
+  area() float64
+}
+
+func (c circle) area() float64 {
+  return math.Pi * c.radius * c.radius
+}
+
+func info(s shape) {
+  fmt.Println("Area:", s.area())
+}
+
+func main() {
+  c := circle{5}
+  info(&c)
+}
+```
+
+#### 8.3.3. POINTER receiver & POINTER value
+
+```go
+package main
+
+import (
+  "fmt"
+  "math"
+)
+
+type circle struct {
+  radius float64
+}
+
+type shape interface {
+  area() float64
+}
+
+func (c *circle) area() float64 {
+  return math.Pi * c.radius * c.radius
+}
+
+func info(s shape) {
+  fmt.Println("Area:", s.area())
+}
+
+func main() {
+  c := circle{5}
+  info(&c)
+}
+```
