@@ -1379,3 +1379,60 @@ func sum(numbers ...int) int {
   return sum
 }
 ```
+
+### 7.3. Defer
+
+This is where we really get to start to take our program and decouple it.
+Break it up into pieces and be able to start modularize it.
+
+A "defer" statement invokes a function whose execution is deferred to the moment the `surrounding function`
+returns, either because the surrounding function executed a `return statement`, reached the end of its
+`function body`, or because the corresponding goroutine is `panicking`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  foo()
+  bar()
+}
+
+func foo() {
+  fmt.Println("foo")
+}
+
+func bar() {
+  fmt.Println("bar")
+}
+```
+
+As normal, `foo` will be invoked first, and then `bar`.
+However, if the `defer` `foo`, then `bar` will be executed first and then `foo`
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  defer foo()
+  bar()
+}
+
+func foo() {
+  fmt.Println("foo")
+}
+
+func bar() {
+  fmt.Println("bar")
+}
+```
+
+Usage:
+
+I open a file in my program. I want to make sure that that file gets closed when I'm done with it,
+right after I open it, I could say `defer` and I can run a `function` to `close that file`.
+
+Defer is always going to run whenever the containing function exists.
