@@ -1870,3 +1870,41 @@ func loopFactorial(n int) int {
   return total
 }
 ```
+
+## 8. Pointers
+
+Pointer is just like pointing to some location in memory where a value is store.
+
+### 8.1. What are pointers?
+
+Everything in Go is pass by value
+
+- `&a`: give you the address of the variable `a`
+- `*&a`: gives you the value stored at an address when you have the address
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  a := 11
+
+  fmt.Println(a)   // 11
+  fmt.Println(&a)  // Print the address of variable `a` in memory
+
+  fmt.Prinf("%T\n", a)    // int
+  fmt.Prinf("%T\n", &a)   // *int (a pointer point to an int)
+
+  var b *int = &a
+
+  fmt.Printf("%T\n", b)   // *int (a pointer to a variable)
+
+  fmt.Println(*b)         // dereference (get the value at the address which pointer b is currently point to)
+
+  *b = 20                 // set the value at the address which pointer b is current point to to 20
+                          // on another hand, set value of `a`
+
+  fmt.Println(a)          // 20
+}
+```
