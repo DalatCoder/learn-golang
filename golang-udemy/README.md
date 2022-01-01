@@ -1320,6 +1320,10 @@ x,y := mouse("Hieu", "Nguyen")
 
 ### 7.1. Variadic parameter
 
+If function `f` is `variadic` with a `final paramter` `p` of type `...T`, then within `f`
+the type of `p` is `equivalent to type []T`. If `f` is invoked with `no actual arguments for p`,
+the value passed to `p` is `nil`. (Language spec)
+
 func (r receiver) identifier(paramter(s)) (return(s)) {
 
 }
@@ -1345,4 +1349,33 @@ func sum(x ...int) int {
 x := sum(1, 2, 3, 4, 5)
 // [1 2 3 4 5]
 // []int | slice of int
+```
+
+### 7.2. Unfurling a slice (destructuring a slice)
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  xi := []int{1, 2, 3, 4, 5}
+
+  sum(xi) // Wrong
+  sum(xi...) // Correct
+
+  sum() // Correct
+}
+
+func sum(numbers ...int) int {
+  sum := 0
+
+  for _, v := range numbers {
+    sum += v
+  }
+
+  return sum
+}
 ```
