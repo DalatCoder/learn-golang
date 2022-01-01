@@ -1618,3 +1618,34 @@ func main() {
   }(1, 2)
 }
 ```
+
+### 7.8. Function expression (Assign a func to variable)
+
+Expression is something that comes down to a value.
+And the value that we're going to have here is a function,
+and we gonna assign it to a variable.
+
+In Go, `function is first-class citizens`. Function can be used as any other variables,
+any other types.
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  f := func() {
+    fmt.Println("my first func expression")
+  }
+
+  f()
+
+  f = func(x int) {
+    fmt.Println(x)
+  }
+
+  f(1)
+}
+```
