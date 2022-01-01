@@ -1835,3 +1835,38 @@ func incrementor() func() int {
 ```
 
 Code block enclosing some variables.
+
+### 7.12. Recursion
+
+Anything you do with recursion, you could also do with a loop. The author favor `loop` over `recursion`.
+It's going to have negative impacts on memory usage in your program.
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+
+}
+
+func factorial(n int) int {
+  if n == 0 {
+    return 1
+  }
+
+  return n * factorial(n - 1)
+}
+
+func loopFactorial(n int) int {
+  total := 1
+
+  for ; n > 0; n-- {
+    total *= n
+  }
+
+  return total
+}
+```
