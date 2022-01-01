@@ -1908,3 +1908,18 @@ func main() {
   fmt.Println(a)          // 20
 }
 ```
+
+### 8.2. When to use pointer?
+
+- you have a large chunk of data and you don't want to pass that big chunk of data around through your program
+- you just need to pass the address where that data is stored
+- you need to change something that's at a certain location: dereference the address and assign it some values.
+
+Summary
+
+Pointers allow you to share a value stored in some memory location. Use pointers when:
+
+- You don't want to pass around a lot of data
+- You want to change the data at a location
+
+Everything in Go is pass by value.
