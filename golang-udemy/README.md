@@ -4,6 +4,7 @@
 - go effective
 - go spec
 - go playground
+- learn go by example
 - common pattern: `keyword identifier type`
   - `var x int`
   - `type person struct{}`
@@ -1763,3 +1764,74 @@ func odd(f func(xi ...int) int, vi ...int) int {
   return f(yi...)
 }
 ```
+
+### 7.11. Closure
+
+We enclosing a variable so that we limit its scope.
+
+You want to keep a scope of a variable as narrow as possible.
+
+Closure:
+
+- one scope enclosing other scopes
+  - variables declared in the outer scope are accessible in inner scopes
+- closure helps us limit the scope of variables
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+// Package-level scope
+var x int
+
+func main() {
+  x++
+  fmt.Println(x)
+
+  foo()
+
+  {
+    y := 1
+    fmt.Println(y)
+  }
+
+  fmt.Println(y) // y is undefined
+}
+
+func foo() {
+  fmt.Println(x)
+  x++
+}
+```
+
+Relistic example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  a := incrementor()
+
+  fmt.Println(a()) // 1
+  fmt.Println(a()) // 2
+  fmt.Println(a()) // 3
+  fmt.Println(b()) // 1
+  fmt.Println(b()) // 2
+}
+
+func incrementor() func() int {
+  var x int
+
+  return func () int {
+    x++
+    return x
+  }
+}
+```
+
+Code block enclosing some variables.
