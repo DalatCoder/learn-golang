@@ -1317,3 +1317,32 @@ func mouse(firstname, lastname string) (string, bool) {
 
 x,y := mouse("Hieu", "Nguyen")
 ```
+
+### 7.1. Variadic parameter
+
+func (r receiver) identifier(paramter(s)) (return(s)) {
+
+}
+
+Define variadic paramter.
+
+Define function `sum` which take an unlimitted numbers of paramters type `int`
+
+```go
+func sum(x ...int) int {
+  fmt.Println(x)
+  fmt.Printf("%T\n", x)
+
+  s := 0
+
+  for i, v := range x {
+    sum += v
+  }
+
+  return sum
+}
+
+x := sum(1, 2, 3, 4, 5)
+// [1 2 3 4 5]
+// []int | slice of int
+```
