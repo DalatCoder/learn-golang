@@ -2051,3 +2051,53 @@ func main() {
   info(&c)
 }
 ```
+
+### 8.4. Exercise
+
+- create a `person` struct
+- create a `func` called `changeMe` with a `*person as a paramter`
+  - change the value stored at the `*person` address
+- create a value of `type` person
+  - print out the value
+- in `func main`
+  - call `changeMe`
+- in `func main`
+  - print out the value
+- important
+  - to dereference a struct, use `(*value).field`
+  - as an exception, if the type of `x` is a named pointer type and `(*x).f` is a valid selector expression denoting a field (but not a method) `x.f` is shorthand for `(*x).f`.
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type person struct {
+	first string
+	last  string
+}
+
+func changeMe(p *person) {
+	p.first = "Hieu"
+	p.last = "Nguyen"
+
+  // Or
+	(*p).first = "Hieu"
+	(*p).last = "Nguyen"
+}
+
+func main() {
+	p := person{"Ha", "Nguyen"}
+
+	fmt.Println(p)
+	fmt.Println(&p)
+
+	changeMe(&p)
+	fmt.Println("After")
+
+	fmt.Println(p)
+}
+
+```
