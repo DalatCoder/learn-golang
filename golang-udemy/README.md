@@ -1613,8 +1613,8 @@ package main
 import "fmt"
 
 func main() {
-  (func(a int, b int) {
+  func(a int, b int) {
     fmt.Println("Hello From Anoy", a, b)
-  })(1, 2)
+  }(1, 2)
 }
 ```
