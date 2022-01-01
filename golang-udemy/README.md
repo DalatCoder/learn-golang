@@ -1284,3 +1284,36 @@ func main() {
   fmt.Println(p1)
 }
 ```
+
+## 7. Functions
+
+All about modular. **Everything in Go is PASS BY VALUE**
+
+I'm going to take my code and break it up into small modular chunks, small chunks, little modules.
+
+Function signature
+
+`func (r receiver) identifier(parameters) (return(s)) { code }`
+
+```go
+func foo() {
+  fmt.Println("Hello")
+}
+
+func bar(s string) {
+  fmt.Println("Hello", s)
+}
+
+func woo(s string) string {
+  return fmt.Sprint("Hello from, ", s)
+}
+
+func mouse(firstname, lastname string) (string, bool) {
+  a := "Hello"
+  b := true
+
+  return a, b
+}
+
+x,y := mouse("Hieu", "Nguyen")
+```
