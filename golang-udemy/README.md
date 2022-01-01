@@ -1436,3 +1436,52 @@ I open a file in my program. I want to make sure that that file gets closed when
 right after I open it, I could say `defer` and I can run a `function` to `close that file`.
 
 Defer is always going to run whenever the containing function exists.
+
+### 7.4. Methods
+
+Attach methods to struct.
+
+Function signature: `func (r receiver) identifier(paramter(s)) (return(s)) {}`
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type person struct {
+  first string
+  last string
+}
+
+type secretAgent struct {
+  person
+  kill int
+}
+
+func (s secretAgent) speak() { // method speak attached to type secretAgent, have accessed to all fields of this type
+  fmt.Println("I am, ", s.first, s.last)
+}
+
+func speak(s secretAgent) {  } // function speak with paramter of type secretAgent
+
+func main() {
+  sa1 := secretAgent {
+    person: person {
+      first: "Hieu",
+      last: "Nguyen"
+    },
+    kill: 0
+  }
+
+  sa1.speak()
+
+  sa2 := secretAgent {
+    person: { "Ha", "Nguyen" },
+    kill: 0
+  }
+
+  sa2.speak()
+}
+```
