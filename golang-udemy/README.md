@@ -1680,3 +1680,86 @@ func bar() func() int {
   }
 }
 ```
+
+### 7.10. Callback
+
+- Passing a func as an argument
+- Functional programming not something that is recommended in Go. However, it is good to be aware of callbacks.
+- Idiomatic Go: write clear, simple, readable code
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  ii := []int{1, 2, 3, 4, 5}
+  s := sum(ii...)
+
+  fmt.Println(s)
+}
+
+func sum(xi ...int) int {
+  total := 0
+
+  for _, v := range xi {
+    total += v
+  }
+
+  return total
+}
+```
+
+Step further
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  ii := []int{1, 2, 3, 4, 5}
+  s := sum(ii...)
+
+  sumOfEven := even(sum, ii...)
+  sumOfOdd := odd(sum, ii...)
+
+  fmt.Println("sum of all numbers", s)
+  fmt.Println("sum of only even numbers", sumOfEven)
+  fmt.Println("sum of only odd numbers", sumOfOdd)
+}
+
+func sum(xi ...int) int {
+  total := 0
+
+  for _, v := range xi {
+    total += v
+  }
+
+  return total
+}
+
+func even(f func(xi ...int) int, vi ...int) int {
+  var yi []int
+
+  for _, v := range vi {
+    if v % 2 == 0 {
+      yi = append(yi, v)
+    }
+  }
+
+  return f(yi...)
+}
+
+func odd(f func(xi ...int) int, vi ...int) int {
+  var yi []int
+
+  for _, v := range vi {
+    if v % 2 != 0 {
+      yi = append(yi, v)
+    }
+  }
+
+  return f(yi...)
+}
+```
