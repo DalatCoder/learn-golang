@@ -1600,3 +1600,21 @@ func foo(h human) {
   }
 }
 ```
+
+### 7.7. Anonymous function
+
+Anonymous function signature: `func() {}`
+
+`IIFE` func
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  (func(a int, b int) {
+    fmt.Println("Hello From Anoy", a, b)
+  })(1, 2)
+}
+```
