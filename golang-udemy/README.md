@@ -4,6 +4,10 @@
 - go effective
 - go spec
 - go playground
+- common pattern: `keyword identifier type`
+  - `var x int`
+  - `type person struct{}`
+  - `type human interface{}`
 
 ## Environment
 
@@ -1483,5 +1487,116 @@ func main() {
   }
 
   sa2.speak()
+}
+```
+
+### 7.5. Interfaces & Polymorphism (search for Bill kenedy composition)
+
+Interfaces allow us to define behaviour and to do polymorphism.
+
+Any body who has `any type` that has this method `speak` is also of type `human`.
+
+A value can be of more than one type. `sa1` can be type of `secretAgent` or `human`.
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type person struct {
+  first string
+  last string
+}
+
+type secretAgent struct {
+  person
+  kill int
+}
+
+/**
+* Any body who has any type that has this method `speak` is also of type human
+*/
+type human interface {
+  speak()
+}
+
+func (s secretAgent) speak() { // method speak attached to type secretAgent, have accessed to all fields of this type
+  fmt.Println("I am, ", s.first, s.last)
+}
+
+func speak(s secretAgent) {  } // function speak with paramter of type secretAgent
+
+func main() {
+  sa1 := secretAgent {
+    person: person {
+      first: "Hieu",
+      last: "Nguyen"
+    },
+    kill: 0
+  }
+
+  sa1.speak()
+
+  sa2 := secretAgent {
+    person: { "Ha", "Nguyen" },
+    kill: 0
+  }
+
+  sa2.speak()
+
+  bar(sa2)
+}
+
+func bar(h human) {
+  h.speak()
+}
+```
+
+If an `interface` is `empty`, that means every type will implement this `interface` by default.
+So `fmt.Println(a ...interface{})` will accept unlimitted arguments of any type.
+
+### 7.6. Assertion
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+}
+
+func SwitchOnType(x interface{}) {
+    switch x.(type) {
+      case int:
+        fmt.Println("int")
+        fallthrough
+      case string:
+        fmt.Println("string")
+        fallthrough
+      case contact:
+        fmt.Println("contact struct")
+    }
+}
+```
+
+Asserting a type to be more specific type.
+Conversion `interface` to the `concrete type`
+
+```go
+type human interface {
+  speak()
+}
+
+func foo(h human) {
+  switch h.(type) {
+    case person:
+      fmt.Println("Fullname: ", h.(person).first, h.(person).last)
+
+    case secretAgent:
+      fmt.Println("Kill: ", h.(secretAgent).kill)
+  }
 }
 ```
