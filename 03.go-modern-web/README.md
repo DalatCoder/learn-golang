@@ -460,3 +460,104 @@ func main() {
     fmt.Println(string(newJson))
 }
 ```
+
+### 1.12. Writing tests
+
+When we write code, we want to write tests to ensure that our code actually does what it's supposed to do.
+
+In file `main.go`
+
+```go
+package main
+
+func main() {
+    result, err := divide(100.0, 10.0)
+    if err != nil {
+        log.Println(err)
+        return
+    }
+
+    log.Println(result)
+}
+
+func divide(x, y float64) (float32, error) {
+    var result float32
+
+    if y == 0 {
+        return result, errors.New("cannot divide by 0")
+    }
+
+    result = x / y
+    return result, nil
+}
+```
+
+In file `main_test.go`
+
+2 ways to write tests
+
+- one way slow
+- one way efficient
+
+The first way: write every test function for every case
+
+```go
+package main
+
+func TestDivide(t *testing.T) {
+    _, error := divide(10.0, 1.0)
+
+    if err != nil {
+        t.Error("Got an error when we should not have")
+    }
+}
+
+func TestBadDivide(t *testing.T) {
+    _, error := divide(10.0, 0)
+
+    if err == nil {
+        t.Error("Did not get an error when we should have")
+    }
+}
+```
+
+The second way: write a table test
+
+```go
+package main
+
+var tests = []struct {
+    name string
+    dividend float32
+    divisor float32
+    expected float32
+    isErr bool
+}{
+    { "valid-data", 100.0, 10.0, 10.0, false },
+    { "invalid-data", 100.0, 0.0, 0, true },
+    { "expect-5", 100.0, 20.0, 5.0, false },
+    { "expect-fraction", -1.0, -777.0, 0.0012870013, false },
+}
+
+func TestDivision(t *testing.T) {
+    for _, tt := range tests {
+        got, err := divide(tt.dividend, tt.divisor)
+
+        if tt.isErr {
+            if err == nil {
+                t.Error("expected an error bud did not get one")
+            }
+        } else {
+            if err != nil {
+                t.Error("did not expect an error but got one", err.Error())
+            }
+        }
+
+        if got != tt.expected {
+            t.Errorf("expected %f but got %f", tt.expected, got)
+        }
+    }
+}
+```
+
+Run test: `go test -v`
