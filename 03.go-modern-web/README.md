@@ -286,3 +286,64 @@ func main() {
 
 - For loop
 - Range over data (loop over every entry of a slice)
+
+### 1.8. Interfaces
+
+In really simplest terms, an interface is nothing more than a kind of contract.
+
+An `interface` says, OK, any type that uses this interface has to follow these rules.
+
+Create more `generic` function that accept a type, an interface type, rather than a
+specific type like `Dog` or `Gorilla`.
+
+The key thing to remember is that once you define an `interface`, anything else can implement that interface,
+just by implementing the required methods.
+
+```go
+package main
+
+type Animal interface {
+    Says() string
+    NumberOfLegs() int
+}
+
+type Dog struct {
+    Name string
+    Breed string
+}
+
+type Gorilla struct {
+    Name string
+    Color string
+    NumberOfTeeth int
+}
+
+func main() {
+    dog := Dog {
+        Name: "kiki",
+        Breed: "kikikaka"
+    }
+
+    PrintInfo(dog)
+
+    gorilla := Gorilla {
+        Name: "King Kong",
+        Color: "black",
+        NumberOfTeeth: 32
+    }
+
+    PrintInfo(gorilla) // wrong
+}
+
+func (d Dog) Says() string {
+    return "Woof"
+}
+
+func (d Dog) NumberOfLegs() int {
+    return 4
+}
+
+func PrintInfo(a Animal) {
+    log.Println("This animal says", a.Says(), "and has", a.NumberOfLegs, "legs")
+}
+```
