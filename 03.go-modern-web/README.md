@@ -281,3 +281,8 @@ func main() {
 
 - If statement
 - Switch statement
+
+### 1.7. Loop and ranging over data
+
+- For loop
+- Range over data (loop over every entry of a slice)
