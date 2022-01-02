@@ -404,3 +404,59 @@ func main() {
     log.Println(num)
 }
 ```
+
+### 1.11. Readig and Writing JSON
+
+FirstName string `json:"first_name"`, define a `field name` and the matching name in `response json`
+
+```go
+package main
+
+type Person struct {
+    FirstName string `json:"first_name"`
+    LastName string `json:"last_name"`
+}
+
+func main() {
+    myJson := `
+        [
+            {
+                "first_name": "Hieu",
+                "last_name": "Nguyen"
+            },
+            {
+                "first_name": "Ha",
+                "last_name": "Nguyen"
+            }
+        ]
+    `
+
+    var unmarshalled []Person
+
+    err := json.Unmarshall([]byte(myJson), &unmarshalled)
+    if err != nil {
+        log.Println("Error marshalling json", err)
+    }
+
+    log.Printf("unmarshalled: %v", unmarshalled)
+
+
+    // Write json from a struct
+    mySlice := []Person{
+        { "Hieu", "Nguyen" },
+        { "Ha", "Nguyen" }
+    }
+
+    // with format
+    newJson, err := json.MarshalIndent(mySlice, "", "  ")
+
+    // no format, use in production env
+    newJson, err := json.Marshal()
+
+    if err != nil {
+        log.Println("Error marshalling json", err)
+    }
+
+    fmt.Println(string(newJson))
+}
+```
