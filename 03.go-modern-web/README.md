@@ -39,3 +39,28 @@ Go have first-class functions, a functions can return multiple values
 
 - `func saySomething(s string) (string, string) { return "Hieu", "Ha" }`
 - `s, ss := saySomething("")`
+
+### 1.2. Pointers
+
+Incredibly useful.
+
+A pointer points to a specific location in memory and gives you a mean of getting  
+that particular location in memory.
+
+```go
+package main
+
+import "log"
+
+func main() {
+    s := "green"
+    log.Println("My string is set to", s)
+
+    changeUsingPointer(&s)
+    log.Println("My string is set to", s)
+}
+
+func changeUsingPointer(s *string) {
+    *s := "red"
+}
+```
