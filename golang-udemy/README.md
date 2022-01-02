@@ -2101,3 +2101,13 @@ func main() {
 }
 
 ```
+
+## 9. Application
+
+### 9.1. Working with JSON
+
+String are just a slice of byte (`[]byte`)
+
+## 10. Concurrency
+
+### 10.1. Concurrency vs Parallelism
