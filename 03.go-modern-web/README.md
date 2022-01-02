@@ -64,3 +64,59 @@ func changeUsingPointer(s *string) {
     *s := "red"
 }
 ```
+
+### 1.3. Type & Struct
+
+Sometimes the primitive variables are not enough to do what you want them to do.
+
+So, example of store a person in database, we could define those variales
+
+```go
+package main
+
+import (
+    "log"
+    "time"
+)
+
+var firstName string
+var lastName string
+var phoneNumber string
+var age int
+var birthDate time.Time
+```
+
+We define new `type`.
+
+We define struct with `Capitalize` because we want to use that struct in another package.
+
+- `camelCase`: private, only used inside the current package
+- `CapitalCase`: public, can used outside the current package
+
+```go
+package main
+
+import (
+    "log"
+    "time"
+)
+
+type User struct {
+    FirstName string
+    LastName string
+    PhoneNumber string
+    Age int
+    BirthDate time.Time
+}
+
+func main() {
+    user := User {
+        FirstName: "Hieu",
+        LastName: "Nguyen Trong",
+        PhoneNumber: "0123456789",
+        Age: 22
+    }
+
+    log.Println(user.FirstName)
+}
+```
