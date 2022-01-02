@@ -561,3 +561,81 @@ func TestDivision(t *testing.T) {
 ```
 
 Run test: `go test -v`
+
+## 2. Building a basic web application
+
+### 2.1. Hello world web app
+
+```go
+package main
+
+func main() {
+    http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+        n, err := fmt.Fprintf(w, "Hello World")
+
+        if err != nil {
+            fmt.Println(err)
+        }
+        fmt.Println("Bytes written:", n)
+    })
+
+    // Start web server, listen for incomming requests
+    _ = http.ListenAndServe(":8080", nil)
+}
+```
+
+Start the application with: `go run main.go`
+
+### 2.2. Func and Handler
+
+```go
+package main
+
+import (
+ "fmt"
+ "net/http"
+)
+
+const portNumber = ":8080"
+
+// Home is the home page handler
+func Home(rw http.ResponseWriter, r *http.Request) {
+ n, err := fmt.Fprintln(rw, "<h1>Home page</h1>")
+
+ if err != nil {
+  fmt.Println(err)
+ }
+ fmt.Println("Number of bytes written to Home page", n)
+}
+
+// About is the about page handler
+func About(rw http.ResponseWriter, r *http.Request) {
+ n, err := fmt.Fprintln(rw, "<h1>About page</h1>")
+
+ if err != nil {
+  fmt.Println(err)
+ }
+ fmt.Println("Number of bytes written to About page", n)
+}
+
+func main() {
+ http.HandleFunc("/", Home)
+ http.HandleFunc("/about", About)
+
+ fmt.Println("Starting the application on port:", portNumber)
+ _ = http.ListenAndServe(portNumber, nil)
+}
+```
+
+### 2.3. Error checking
+
+```go
+if err != nil {
+    fmt.Fprintf(rw, err)
+    return // stop the execution
+}
+```
+
+### 2.4. Serving HTML Templates
+
+![Basic Template](assets/basictemplate.png)
