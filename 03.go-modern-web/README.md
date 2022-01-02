@@ -347,3 +347,16 @@ func PrintInfo(a Animal) {
     log.Println("This animal says", a.Says(), "and has", a.NumberOfLegs, "legs")
 }
 ```
+
+### 1.9. Packages
+
+Define our own package.
+
+So packages are incredibly useful, incredibly powerful, a nice way of getting our code organized into
+logical groupings.
+
+Convention to name the package like this
+
+- `go mod init github.com/DalatCoder/myniceprogram`
+- create new directory: `helpers`
+  - create new file: `package helpers`
