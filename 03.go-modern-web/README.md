@@ -639,3 +639,7 @@ if err != nil {
 ### 2.4. Serving HTML Templates
 
 ![Basic Template](assets/basictemplate.png)
+
+### 2.5. Reorganized code
+
+![Reorganized Code](assets/reorganizedcode.png)
