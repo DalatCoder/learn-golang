@@ -188,3 +188,48 @@ func main() {
 }
 
 ```
+
+### 1.5. Map & Slice
+
+Half of what you doing when you're writing programs is figuring out what kind of data structure you want
+to store your data in.
+
+- simple variables
+- structs
+
+Map data structure (`not to be sort`)
+
+Map is `immutable`, never bother to passing a pointer to a `map` to change it. You can just pass
+that `map` itself and that map will remain constant no matter where in the program it is accessed.
+
+```go
+package main
+
+func main() {
+    myMap := make(map[string]string) // best practice
+    myMap := make(map[string]interface{}) // put any thing to map (not recommend)
+
+    myMap["dog"] = "kiki"
+    myMap["other-dog"] = "hihi"
+
+    log.Println(myMap["dog"], myMap["other-dog"])
+}
+```
+
+Slice data struct (`can be sort`)
+
+Concept of `array`. But in `go`, we almost never use `array`, we use `slice`.
+
+```go
+package main
+
+func main() {
+    mySlice := []string // a slice of string
+
+    mySlice = append(mySlice, 2)
+    mySlice = append(mySlice, 1)
+    mySlice = append(mySlice, 3)
+
+    sort.Ints(mySlice)
+}
+```
