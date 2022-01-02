@@ -360,3 +360,47 @@ Convention to name the package like this
 - `go mod init github.com/DalatCoder/myniceprogram`
 - create new directory: `helpers`
   - create new file: `package helpers`
+
+### 1.10. Channels
+
+Channel are unique to Go.
+
+They are a means of sending information from one part of your program to another part of your program, very easily.
+
+- Passing information from a function to another function through arguments
+- Passing information form a function to another function using pointers
+- Creating a channel
+
+`intChan := make(chan int) // make a channel of int`. And all that says is I'm creating a channel,
+a place to send information which will be received in one or more places in my program, and that channel can only
+hold `int`.
+
+```go
+package main
+
+const numPool = 1000
+
+func RandomNumber(n int) int {
+    rand.Seed(time.Now().UnixNano())
+    value := math.Intn(n)
+    return value
+}
+
+func CalculateValue(intChan chan int) {
+    randomNumber := RandomNumber(numPool)
+    intChan <- randomNumber // put random number to our channel
+}
+
+func main() {
+    intChan := make(chan int) // make a channel of int
+    defer close(intChange)
+
+    // Start a goroutine a run the function CalculateValue in this go roroutine
+    go CalculateValue(intChan)
+
+    // Get value from the channel (listen for changing event)
+
+    num := <- intChan // Assign whatever value come from channel to num variable
+    log.Println(num)
+}
+```
