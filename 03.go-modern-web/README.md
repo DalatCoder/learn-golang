@@ -561,3 +561,27 @@ func TestDivision(t *testing.T) {
 ```
 
 Run test: `go test -v`
+
+## 2. Building a basic web application
+
+### 2.1. Hello world web app
+
+```go
+package main
+
+func main() {
+    http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+        n, err := fmt.Fprintf(w, "Hello World")
+
+        if err != nil {
+            fmt.Println(err)
+        }
+        fmt.Println("Bytes written:", n)
+    })
+
+    // Start web server, listen for incomming requests
+    _ = http.ListenAndServe(":8080", nil)
+}
+```
+
+Start the application with: `go run main.go`
