@@ -120,3 +120,71 @@ func main() {
     log.Println(user.FirstName)
 }
 ```
+
+### 1.4. Receivers Structs with Functions
+
+Structs can have functions associated with them.
+
+```go
+package main
+
+type myStruct struct {
+    FirstName string
+}
+
+func main() {
+    m := myStruct { "Hieu" }
+    n := myStruct { "Ha" }
+}
+```
+
+Create a new function and attach it to the struct through the `receiver`.
+
+`(m *myStruct)` is called a `receiver` and it ties this function to the `type of myStruct` because
+I'm using a `pointer`. This `pointer` of `*myStruct` point to the `myStruct` struct. That mean I
+can access to the information from `myStruct` through this `receiver`.
+
+```go
+func (m *myStruct) printFirstName() string {
+    return m.FirstName
+}
+```
+
+Using `receiver` with `pointer` to `save` the change.
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type Person struct {
+  FirstName string
+  LastName  string
+}
+
+func (p Person) changeFirstName() {
+  p.FirstName = "Hieu Normal"
+}
+
+func (p *Person) changeFirstNamePointer() {
+  (*p).FirstName = "Hieu Pointer"
+}
+
+func main() {
+  p := Person{
+    FirstName: "Ha",
+    LastName:  "Nguyen",
+  }
+
+  fmt.Println("Init", p.FirstName)
+
+  p.changeFirstName()
+  fmt.Println("Change first name normal", p.FirstName)
+
+  p.changeFirstNamePointer()
+  fmt.Println("Change first name pointer", p.FirstName)
+}
+
+```
