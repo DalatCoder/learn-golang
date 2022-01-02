@@ -626,3 +626,12 @@ func main() {
  _ = http.ListenAndServe(portNumber, nil)
 }
 ```
+
+### 2.3. Error checking
+
+```go
+if err != nil {
+    fmt.Fprintf(rw, err)
+    return // stop the execution
+}
+```
