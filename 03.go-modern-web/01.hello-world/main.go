@@ -3,28 +3,30 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"text/template"
 )
 
 const portNumber = ":8080"
 
 // Home is the home page handler
 func Home(rw http.ResponseWriter, r *http.Request) {
-	n, err := fmt.Fprintln(rw, "<h1>Home page</h1>")
-
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Number of bytes written to Home page", n)
+	renderTemplate(rw, "home.page.tmpl")
 }
 
 // About is the about page handler
 func About(rw http.ResponseWriter, r *http.Request) {
-	n, err := fmt.Fprintln(rw, "<h1>About page</h1>")
+	renderTemplate(rw, "about.page.tmpl")
+}
+
+func renderTemplate(w http.ResponseWriter, tmpl string) {
+	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
+
+	err := parsedTemplate.Execute(w, nil)
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("error parsing template:", err)
+		return
 	}
-	fmt.Println("Number of bytes written to About page", n)
 }
 
 func main() {

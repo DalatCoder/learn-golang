@@ -635,3 +635,7 @@ if err != nil {
     return // stop the execution
 }
 ```
+
+### 2.4. Serving HTML Templates
+
+![Basic Template](assets/basictemplate.png)
