@@ -639,3 +639,177 @@ if err != nil {
 ### 2.4. Serving HTML Templates
 
 ![Basic Template](assets/basictemplate.png)
+
+### 2.5. Reorganized code
+
+![Reorganized Code](assets/reorganizedcode.png)
+
+### 2.6. Enable Go Modules and Refactoring our code to use packages
+
+Go modules is basically package management for Go.
+
+`go mod init github.com/dalatcoder/go-beginner`
+
+Packages always live in their own directory.
+
+Run the web server: `go run cmd/web/*.go`
+
+![Basic Architecture](assets/basicarch.png)
+
+### 2.7. Working with layout and building a template cache
+
+Tổng hợp nhanh kiến thức đã học ở module 2 
+
+### 2.7.1 Template của Go
+
+Go dùng 1 dạng template HTML riêng trong package `template/html`, mỗi file template kết thúc với 
+đuôi `.tmpl`
+
+Để thuận tiện hơn, ta tạo 1 thư mục `templates` tại thư mục `root` của dự án. Tất cả `template` đều
+bỏ vào trong folder này.
+
+Có 2 dạng template
+
+- `layout template`: layout chung cho tất cả template khác: `base.layout.tmpl`
+- `template thường`: template thường: `home.page.tmpl`
+
+### 2.7.2 Template cache
+
+Để tối ưu việc đọc các template tĩnh, ta tiến hành tạo 1 module template cache.
+Để tái sử dụng module này, ta tiến hành tách ra 1 file riêng tại đường dẫn: `pkg/render/render.go`
+
+### 2.7.3 Xây dựng Global config
+
+Để lưu trữ cấu hình và thuận tiện trong việc chia sẻ `config` này đến các `module` khác, ta tiến hành 
+tạo `module config`. 
+
+Module được lưu tại địa chỉ: `pkg/config/config.go` và là 1 `struct`
+
+```go
+// AppConfig holds the application config
+type AppConfig struct {
+    UseCache      bool
+    TemplateCache map[string]*template.Template
+}
+```
+
+Ta tiến hành định nghĩa `templateCache` ở `entry main`, khi chạy webserver, `app config` được khởi tạo và sẽ tồn tại mãi trong quá trình 
+chương trình chạy
+
+```go
+func main() {
+    var app config.AppConfig
+
+    templateCache, err := render.CreateTemplateCache()
+    if err != nil {
+        log.Fatal("cannot create template cache")
+    }
+
+    app.TemplateCache = templateCache
+    app.UseCache = false
+
+    repo := handlers.NewRepo(&app)
+    handlers.NewHandlers(repo)
+
+    render.NewTemplates(&app)
+
+    http.HandleFunc("/", handlers.Repo.Home)
+    http.HandleFunc("/about", handlers.Repo.About)
+
+    fmt.Println("Starting the application on port:", portNumber)
+    _ = http.ListenAndServe(portNumber, nil)
+}
+```
+
+### 2.7.4 Repository Pattern
+
+Tiếp tục, để dễ dàng trong việc tập hợp các thứ cần thiết và share trên nhiều module cần dùng. Ta tiến hành định nghĩa `repository` để
+lưu trữ những thông tin chung này
+
+```go
+// Repo the repository used by the handlers
+var Repo *Repository
+
+// Repository is the repository type
+type Repository struct {
+    App *config.AppConfig
+}
+
+// NewRepo creates a new repository
+func NewRepo(a *config.AppConfig) *Repository {
+    return &Repository{
+        App: a,
+    }
+}
+
+// NewHandlers sets the repository for the handlers
+func NewHandlers(r *Repository) {
+    Repo = r
+}
+```
+
+### 2.7.5 Tổng quan chung về module này
+
+Học được nhiều thứ từ module này:
+
+- Tạo `package` riêng để dễ quản lý
+    - `go mod init <package_name>`
+    - `package_name` thường đặt theo quy ước `github.com/dalatcoder/repo_name`
+
+- Mỗi `module` nằm trong 1 thư mục, tất cả `file` thuộc `module` này đều phải nằm cùng trong thư mục này
+- Mỗi `module` có cách để `expose` ra những thứ cần thiết, tương tự như `private/public` trong OOP
+    - `camelCase`: private, chỉ có code bên trong cùng `module` mới có thể truy cập
+    - `CapitalCase`: public, có thể dùng ở các module khác theo cú pháp `module_name.CapitalCase`
+
+- Mỗi `module` giống như là 1 `class` trong hướng đối tượng, ta có thể `set` giá trị cho biến thông qua hàm dạng `setter`, 
+khởi tạo thông qua việc tạo các hàm `New`. Ví dụ về việc khai báo `repo` ở module `hanlders`, sau đó khởi tạo và pass kết quả `repo` ở 
+module `main`.
+
+- Trong `go` dùng con trỏ rất nhiều
+    - Kiểu dữ liệu tập hợp là `struct` được dùng phổ biến để gom các thuộc tính và phương thức chung lại với nhau
+    - Tuy nhiên việc `pass` các `struct` này qua lại theo kiểu thông thường sẽ dẫn tới lãng phí tài nguyên
+    - Do đó, cách tối ưu hơn là `pass` theo dạng con trỏ, các `struct` dùng nhiều lần như `AppConfig` và `Repository` thì ta 
+    chỉ cần khởi tạo 1 lần ở `main`, sau đó `pass` địa chỉ của `struct` này vào các `module` khác dưới dạng `pointer`.
+    - Dùng nhiều `struct` rồi `pass` con trỏ rối vc
+
+- Để phân tách rõ ràng hơn nữa thì ta có thể tách các `struct` dạng `model` vào 1 `module` riêng tại vị trí: `pkg/models/model_name.go`
+
+- Trong `go`, nếu tổ chức các `module` không rõ ràng thì khi `import` có thể xảy ra tình trạng `2 package import lẫn nhau`. Cách giải quyết 
+trong trường hợp này là tìm đoạn code gây ra việc `import` lẫn nhau, tách đoạn code này ra 1 `module` riêng.
+
+- Để `pass` dữ liệu vào `template` khá dễ, và để thuận tiện hơn, ta tạo 1 `model` riêng, khai báo các `field` cần thiết
+
+```go
+package models
+
+// TemplateData holds data sent from handlers to templates
+type TemplateData struct {
+    StringMap map[string]string         // Lưu trữ các key - value thuộc kiểu string
+    IntMap    map[string]int            // Lưu trữ các key - value thuộc kiểu int
+    FloatMap  map[string]float32        // Lưu trữ các key - value thuộc kiểu float
+    Data      map[string]interface{}    // Lưu trữ các key - value thuộc bất kỳ kiểu nào (do bất kỳ kiểu nào đều `implement` interface{})
+    CSRFToken string                    // CSRF token, dùng trong form, tránh tấn công CSRF
+    Flash     string                    // Đoạn tin nhắn thông báo
+    Warning   string                    // Đoạn tin nhắn cảnh báo
+    Error     string                    // Đoạn tin nhắn lỗi
+}
+```
+
+- Để `pass` dữ liệu vào `template` thông qua `struct` đã định nghĩa phía trên
+```go
+// About is the about page handler
+func (m *Repository) About(rw http.ResponseWriter, r *http.Request) {
+    stringMap := make(map[string]string)
+    stringMap["test"] = "Hello World"
+
+    render.RenderTemplate(rw, "about.page.tmpl", &models.TemplateData{
+        StringMap: stringMap,
+    })
+
+```
+
+- Để truy cập vào dữ liệu được `pass` vào, tại `template` ta tiến hành dùng cú pháp sau để truy cập
+    - `<p>This came from the template: {{index .StringMap "test"}}</p>`
+    - Dấu `.` tượng trưng cho `struct` được `pass` vào, trong trường hợp này là `TemplateData`
+    - `StringMap` là thuộc tính
+    - `"test"` là `key` của thuộc tính `StringMap` (dạng `Map`)
