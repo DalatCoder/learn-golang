@@ -978,3 +978,9 @@ func SessionLoad(next http.Handler) http.Handler {
     return session.LoadAndSave(next)
 }
 ```
+
+Store `remote_ip` key to the `session` and retrieve the value from that key
+```go
+session.Put(r.Context(), "remote_ip", remoteIP)
+remoteIP := session.GetString(r.Context(), "remote_ip")
+```
