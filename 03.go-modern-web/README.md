@@ -813,3 +813,70 @@ func (m *Repository) About(rw http.ResponseWriter, r *http.Request) {
     - Dấu `.` tượng trưng cho `struct` được `pass` vào, trong trường hợp này là `TemplateData`
     - `StringMap` là thuộc tính
     - `"test"` là `key` của thuộc tính `StringMap` (dạng `Map`)
+
+
+## 3. Improve Routing & Middleware
+
+### 3.1. Using `chi`
+
+- `go get -u github.com/go-chi/chi`
+- `go mod tidy`: remove unused packages in `go.mod` file
+
+Create `routes` module for isolating all `route` logics
+
+```go
+package main
+
+import (
+    "github.com/dalatcoder/go-beginner/pkg/config"
+    "github.com/dalatcoder/go-beginner/pkg/handlers"
+    "github.com/go-chi/chi"
+    "github.com/go-chi/chi/middleware"
+    "net/http"
+)
+
+func routes(app *config.AppConfig) http.Handler {
+    mux := chi.NewRouter()
+
+    mux.Use(middleware.Recoverer)
+
+    mux.Get("/", handlers.Repo.Home)
+    mux.Get("/about", handlers.Repo.About)
+
+    return mux
+}
+```
+
+Modify `main entrypoint`
+
+
+```go
+func main() {
+    var app config.AppConfig
+
+    templateCache, err := render.CreateTemplateCache()
+    if err != nil {
+        log.Fatal("cannot create template cache")
+    }
+
+    app.TemplateCache = templateCache
+    app.UseCache = false
+
+    repo := handlers.NewRepo(&app)
+    handlers.NewHandlers(repo)
+
+    render.NewTemplates(&app)
+
+    fmt.Println("Starting the application on port:", portNumber)
+
+    srv := &http.Server{
+        Addr:    portNumber,
+        Handler: routes(&app),
+    }
+
+    err = srv.ListenAndServe()
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
