@@ -933,3 +933,48 @@ func NoSurf(next http.Handler) http.Handler {
     return csrfHandler
 }
 ```
+
+## 4. State management with `session`
+
+### 4.1. Installing and Setting Up a Session Package
+
+`go get github.com/alexedwards/scs/v2`
+
+Initializing the `session` in `main entry`
+
+```go
+func main() {
+    session = scs.New()
+    session.Lifetime = 24 * time.Hour
+    session.Cookie.Persist = true // persist after user close the browser
+    session.Cookie.SameSite = http.SameSiteLaxMode
+    session.Cookie.Secure = app.InProduction 
+}
+```
+
+However, for other file in the `main package` to easily access `session` and `app` variable. We will declare those variables as `package-level scope`
+
+```go
+var app config.AppConfig
+var session *scs.SessionManager
+```
+
+For other `module` to access the `session`, we will define new `field` in `app config`
+
+```go
+type AppConfig struct {
+    UseCache      bool
+    TemplateCache map[string]*template.Template
+    InfoLog       *log.Logger
+    InProduction  bool
+    Session       *scs.SessionManager
+}
+```
+
+Create new `middleware` for `start using session`
+
+```go
+func SessionLoad(next http.Handler) http.Handler {
+    return session.LoadAndSave(next)
+}
+```
