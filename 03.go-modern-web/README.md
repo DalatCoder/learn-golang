@@ -880,3 +880,56 @@ func main() {
     }
 }
 ```
+
+### 3.2. Write our own `middleware`
+
+Isolating all `middleware` to its own file `/cmd/web/middleware.go` with `package main`.
+
+Almost middleware is written using this pattern
+
+```go
+func WriteToConsole(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+        fmt.Println("Hit the page with method:", request.Method, "and path:", request.URL.Path)
+        next.ServeHTTP(writer, request)
+    })
+}
+```
+
+And then, we apply `middlware` using `chi` package
+
+```go
+func routes(app *config.AppConfig) http.Handler {
+    mux := chi.NewRouter()
+
+    mux.Use(middleware.Recoverer)
+    mux.Use(WriteToConsole)
+
+    mux.Get("/", handlers.Repo.Home)
+    mux.Get("/about", handlers.Repo.About)
+
+    return mux
+}
+```
+
+### 3.3. Write `middleware` to check `csrf token`
+
+Using `github.com/justinas/nosurf` package
+
+- `go get github.com/justinas/nosurf`
+
+
+```go
+func NoSurf(next http.Handler) http.Handler {
+    csrfHandler := nosurf.New(next)
+
+    csrfHandler.SetBaseCookie(http.Cookie{
+        HttpOnly: true,
+        Path: "/",
+        Secure: false, // true in production
+        SameSite: http.SameSiteLaxMode,
+    })
+
+    return csrfHandler
+}
+```
