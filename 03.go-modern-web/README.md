@@ -643,3 +643,17 @@ if err != nil {
 ### 2.5. Reorganized code
 
 ![Reorganized Code](assets/reorganizedcode.png)
+
+### 2.6. Enable Go Modules and Refactoring our code to use packages
+
+Go modules is basically package management for Go.
+
+`go mod init github.com/dalatcoder/go-beginner`
+
+Packages always live in their own directory.
+
+Run the web server: `go run cmd/web/*.go`
+
+![Basic Architecture](assets/basicarch.png)
+
+### 2.7. Working with layout and building a template cache
