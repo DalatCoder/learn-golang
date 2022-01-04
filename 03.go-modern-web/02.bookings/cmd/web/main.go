@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/alexedwards/scs/v2"
-	"github.com/dalatcoder/go-beginner/pkg/config"
-	"github.com/dalatcoder/go-beginner/pkg/handlers"
-	"github.com/dalatcoder/go-beginner/pkg/render"
+	"github.com/dalatcoder/bookings/pkg/config"
+	"github.com/dalatcoder/bookings/pkg/handlers"
+	"github.com/dalatcoder/bookings/pkg/render"
 	"log"
 	"net/http"
 	"time"

@@ -813,3 +813,206 @@ func (m *Repository) About(rw http.ResponseWriter, r *http.Request) {
     - Dấu `.` tượng trưng cho `struct` được `pass` vào, trong trường hợp này là `TemplateData`
     - `StringMap` là thuộc tính
     - `"test"` là `key` của thuộc tính `StringMap` (dạng `Map`)
+
+
+## 3. Improve Routing & Middleware
+
+### 3.1. Using `chi`
+
+- `go get -u github.com/go-chi/chi`
+- `go mod tidy`: remove unused packages in `go.mod` file
+
+Create `routes` module for isolating all `route` logics
+
+```go
+package main
+
+import (
+    "github.com/dalatcoder/go-beginner/pkg/config"
+    "github.com/dalatcoder/go-beginner/pkg/handlers"
+    "github.com/go-chi/chi"
+    "github.com/go-chi/chi/middleware"
+    "net/http"
+)
+
+func routes(app *config.AppConfig) http.Handler {
+    mux := chi.NewRouter()
+
+    mux.Use(middleware.Recoverer)
+
+    mux.Get("/", handlers.Repo.Home)
+    mux.Get("/about", handlers.Repo.About)
+
+    return mux
+}
+```
+
+Modify `main entrypoint`
+
+
+```go
+func main() {
+    var app config.AppConfig
+
+    templateCache, err := render.CreateTemplateCache()
+    if err != nil {
+        log.Fatal("cannot create template cache")
+    }
+
+    app.TemplateCache = templateCache
+    app.UseCache = false
+
+    repo := handlers.NewRepo(&app)
+    handlers.NewHandlers(repo)
+
+    render.NewTemplates(&app)
+
+    fmt.Println("Starting the application on port:", portNumber)
+
+    srv := &http.Server{
+        Addr:    portNumber,
+        Handler: routes(&app),
+    }
+
+    err = srv.ListenAndServe()
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
+
+### 3.2. Write our own `middleware`
+
+Isolating all `middleware` to its own file `/cmd/web/middleware.go` with `package main`.
+
+Almost middleware is written using this pattern
+
+```go
+func WriteToConsole(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+        fmt.Println("Hit the page with method:", request.Method, "and path:", request.URL.Path)
+        next.ServeHTTP(writer, request)
+    })
+}
+```
+
+And then, we apply `middlware` using `chi` package
+
+```go
+func routes(app *config.AppConfig) http.Handler {
+    mux := chi.NewRouter()
+
+    mux.Use(middleware.Recoverer)
+    mux.Use(WriteToConsole)
+
+    mux.Get("/", handlers.Repo.Home)
+    mux.Get("/about", handlers.Repo.About)
+
+    return mux
+}
+```
+
+### 3.3. Write `middleware` to check `csrf token`
+
+Using `github.com/justinas/nosurf` package
+
+- `go get github.com/justinas/nosurf`
+
+
+```go
+func NoSurf(next http.Handler) http.Handler {
+    csrfHandler := nosurf.New(next)
+
+    csrfHandler.SetBaseCookie(http.Cookie{
+        HttpOnly: true,
+        Path: "/",
+        Secure: false, // true in production
+        SameSite: http.SameSiteLaxMode,
+    })
+
+    return csrfHandler
+}
+```
+
+## 4. State management with `session`
+
+### 4.1. Installing and Setting Up a Session Package
+
+`go get github.com/alexedwards/scs/v2`
+
+Initializing the `session` in `main entry`
+
+```go
+func main() {
+    session = scs.New()
+    session.Lifetime = 24 * time.Hour
+    session.Cookie.Persist = true // persist after user close the browser
+    session.Cookie.SameSite = http.SameSiteLaxMode
+    session.Cookie.Secure = app.InProduction 
+}
+```
+
+However, for other file in the `main package` to easily access `session` and `app` variable. We will declare those variables as `package-level scope`
+
+```go
+var app config.AppConfig
+var session *scs.SessionManager
+```
+
+For other `module` to access the `session`, we will define new `field` in `app config`
+
+```go
+type AppConfig struct {
+    UseCache      bool
+    TemplateCache map[string]*template.Template
+    InfoLog       *log.Logger
+    InProduction  bool
+    Session       *scs.SessionManager
+}
+```
+
+Create new `middleware` for `start using session`
+
+```go
+func SessionLoad(next http.Handler) http.Handler {
+    return session.LoadAndSave(next)
+}
+```
+
+Store `remote_ip` key to the `session` and retrieve the value from that key
+```go
+session.Put(r.Context(), "remote_ip", remoteIP)
+remoteIP := session.GetString(r.Context(), "remote_ip")
+```
+
+## 5. Building our project
+
+Planning
+
+- Deciding what to build
+- Project scope
+- Key functionality
+
+Our objective
+
+- Bookings & Reservations
+- A bed & breakfast with two rooms
+- What do we need to do?
+
+Key functionality
+
+- Showcase the property
+- Allow for booking a room for one or more nights
+- Check a room's availability
+- Book the room
+- Notify guest, and notify property owner
+- Have a back end that the owner logs in to
+- Review existing bookings
+- Show a calendar of bookings
+- Change or cancel a booking
+
+What will we need ?
+
+- An authentication system
+- Somewhere to store information (database)
+- A means of sending notifications (email/text)
