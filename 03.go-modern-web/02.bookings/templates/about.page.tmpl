@@ -1,0 +1,7 @@
+{{ template "base" . }}
+
+{{ define "content" }}
+    <h1 class="h3 text-center">This is the about page</h1>
+
+        <p>This came from the template: {{index .StringMap "test"}}</p>
+{{ end }}

@@ -984,3 +984,35 @@ Store `remote_ip` key to the `session` and retrieve the value from that key
 session.Put(r.Context(), "remote_ip", remoteIP)
 remoteIP := session.GetString(r.Context(), "remote_ip")
 ```
+
+## 5. Building our project
+
+Planning
+
+- Deciding what to build
+- Project scope
+- Key functionality
+
+Our objective
+
+- Bookings & Reservations
+- A bed & breakfast with two rooms
+- What do we need to do?
+
+Key functionality
+
+- Showcase the property
+- Allow for booking a room for one or more nights
+- Check a room's availability
+- Book the room
+- Notify guest, and notify property owner
+- Have a back end that the owner logs in to
+- Review existing bookings
+- Show a calendar of bookings
+- Change or cancel a booking
+
+What will we need ?
+
+- An authentication system
+- Somewhere to store information (database)
+- A means of sending notifications (email/text)
