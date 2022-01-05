@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b5b1a4f-c28c-40ff-91b2-9474def8222e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/working-html/reservation.html" beforeDir="false" afterPath="$PROJECT_DIR$/working-html/reservation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/make-reservation.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +116,8 @@
     <MESSAGE value="Add images" />
     <MESSAGE value="Add landing page" />
     <MESSAGE value="Add more pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add more pages" />
+    <MESSAGE value="Reservation form" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reservation form" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
