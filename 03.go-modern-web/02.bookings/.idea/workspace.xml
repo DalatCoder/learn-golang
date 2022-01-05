@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b5b1a4f-c28c-40ff-91b2-9474def8222e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/generals-quarters.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/marjors-suite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/vendor/sweetalert/sweetalert2@11.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/contact.page.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/generals.page.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/majors.page.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/make-reservation.page.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/search-availability.page.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/vendor/sweetalert/sweetalert2@11.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/web/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/handlers/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handlers/handlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/render/render.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/render/render.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/about.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.page.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.layout.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.layout.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.page.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/working-html/reservation.html" beforeDir="false" afterPath="$PROJECT_DIR$/working-html/reservation.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +35,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Go File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -43,13 +63,17 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="238pOmWFBPcYSe0YgQGsHZ3XYnV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -57,9 +81,16 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DALATHUB\dev\learn-golang\03.go-modern-web\02.bookings\templates" />
+      <recent name="C:\Users\DALATHUB\dev\learn-golang\03.go-modern-web\02.bookings" />
+      <recent name="C:\Users\DALATHUB\dev\learn-golang\03.go-modern-web\02.bookings\working-html" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DALATHUB\dev\learn-golang\03.go-modern-web\01.hello-world\pkg\render" />
       <recent name="C:\Users\DALATHUB\dev\learn-golang\03.go-modern-web\01.hello-world\pkg\handlers" />
@@ -100,6 +131,15 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Add images" />
+    <MESSAGE value="Add landing page" />
+    <MESSAGE value="Add more pages" />
+    <MESSAGE value="Reservation form" />
+    <MESSAGE value="Make Reservation form" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make Reservation form" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

@@ -1016,3 +1016,28 @@ What will we need ?
 - An authentication system
 - Somewhere to store information (database)
 - A means of sending notifications (email/text)
+
+### 5.1. Serving static assets
+
+Create new folder for `static assets` at `/static`
+
+Using `FileServer`
+
+```go
+func routes(app *config.AppConfig) http.Handler {
+    mux := chi.NewRouter()
+
+    mux.Use(middleware.Recoverer)
+    mux.Use(NoSurf)
+    mux.Use(SessionLoad)
+
+    mux.Get("/", handlers.Repo.Home)
+    mux.Get("/about", handlers.Repo.About)
+
+    fileServer := http.FileServer(http.Dir("./static/"))
+    mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
+
+    return mux
+}
+```
+
