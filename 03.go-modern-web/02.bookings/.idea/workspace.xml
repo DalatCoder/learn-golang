@@ -5,6 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b5b1a4f-c28c-40ff-91b2-9474def8222e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/working-html/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/images/generals-quarters.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/images/marjors-suite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/images/outside.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/images/tray.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/images/woman-laptop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/vendor/bootstrap/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working-html/static/vendor/bootstrap/bootstrap.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Go File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -43,13 +53,17 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="238pOmWFBPcYSe0YgQGsHZ3XYnV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -57,7 +71,9 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -100,6 +116,11 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Add images" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add images" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
