@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b5b1a4f-c28c-40ff-91b2-9474def8222e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/working-html/about.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working-html/contact.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working-html/generals.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working-html/majors.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working-html/reservation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/working-html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/working-html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/working-html/reservation.html" beforeDir="false" afterPath="$PROJECT_DIR$/working-html/reservation.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +115,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Add images" />
     <MESSAGE value="Add landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add landing page" />
+    <MESSAGE value="Add more pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add more pages" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
