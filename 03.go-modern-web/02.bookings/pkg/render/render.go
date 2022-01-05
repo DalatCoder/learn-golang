@@ -61,7 +61,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	}
 
 	for _, page := range pages {
-		log.Println("currently", pages)
+		// log.Println("currently", pages)
 		name := filepath.Base(page)
 
 		// Create template set

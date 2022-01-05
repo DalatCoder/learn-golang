@@ -1,5 +1,76 @@
 {{ template "base" .}}
 
 {{ define "content" }}
-    <h1 class="h3 text-center">This is the home page</h1>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="static/images/outside.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="static/images/tray.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="static/images/woman-laptop.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <h1 class="my-5 text-center">Book Your Room Now</h1>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, animi consectetur et facilis ipsa porro
+            voluptatibus? Accusamus accusantium aperiam atque cumque dolore dolorum ducimus enim esse est ex excepturi
+            fugiat maxime molestias nam nihil nostrum optio possimus qui quis, sunt tempora ullam voluptas. Expedita
+            iste
+            labore odio provident! Aliquam animi, atque dolorem dolorum facere modi nemo neque nesciunt obcaecati
+            perferendis possimus quos recusandae reiciendis reprehenderit sequi ut voluptate voluptates. Aliquid beatae
+            distinctio doloribus, iusto qui tenetur. Atque aut beatae commodi ipsum labore laudantium magni officiis quo
+            ratione reiciendis. Accusantium atque beatae delectus dolores et laudantium maiores, nihil qui quibusdam
+            quod
+            sit sunt temporibus ullam vitae voluptate. Alias aliquam animi architecto asperiores consequatur dolorem
+            earum
+            eligendi exercitationem incidunt ipsum nemo, obcaecati officiis omnis optio perspiciatis quisquam recusandae
+            reprehenderit repudiandae sapiente tenetur velit voluptates voluptatibus. A accusamus aperiam atque ea
+            expedita,
+            molestiae, obcaecati provident rem repellat rerum ullam vel. Explicabo, laboriosam quae. Asperiores
+            excepturi
+            explicabo illo neque pariatur, placeat possimus velit voluptas. Ab alias animi assumenda autem cum, debitis
+            deserunt dicta distinctio dolorem ducimus eos error expedita explicabo facere illo incidunt laboriosam
+            laborum
+            laudantium magni modi necessitatibus nisi nobis odit optio perferendis praesentium sapiente, similique
+            soluta
+            suscipit velit. Aliquid aspernatur blanditiis consectetur corporis culpa eaque explicabo, fugit illum
+            impedit
+            incidunt inventore minus nihil nisi non optio quam quis quod rem repellat, repudiandae tempora voluptatem
+            voluptatum. A alias est saepe tenetur! Ad deleniti distinctio dolorem excepturi incidunt iste itaque minima
+            officiis quis voluptatibus! Ad, commodi culpa cupiditate itaque laudantium libero quae ratione rem soluta?
+            Dolore dolorum nulla numquam pariatur quis reiciendis, saepe vero. A ad aliquam amet atque autem debitis
+            distinctio doloribus error, eum, id impedit mollitia nisi nulla provident quia quis quo reprehenderit rerum
+            ullam, unde. Alias corporis culpa dolor harum magnam nulla optio provident, quas recusandae rem repellendus
+            rerum sapiente vel.
+        </p>
+
+        <div class="d-flex justify-content-center">
+            <a href="/search-availability" class="btn btn-success">Make Reservation</a>
+        </div>
+    </div>
 {{ end }}
