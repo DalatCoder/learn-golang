@@ -307,3 +307,27 @@ func main() {
 	cards.print()
 }
 ```
+
+### 2.13. Shuffling a deck
+
+Shuffling a deck of cards
+
+![Image](assets/shufflecards.png)
+
+Random number generation
+
+![Image](assets/random.png)
+
+```go
+func (d deck) shuffle() {
+	l := len(d) - 1
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i, _ := range d {
+		newPosition := r.Intn(l)
+
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
+}
+```

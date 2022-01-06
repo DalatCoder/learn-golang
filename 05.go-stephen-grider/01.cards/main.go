@@ -1,14 +1,10 @@
 package main
 
-import "log"
-
 func main() {
-	cards, err := newDeckFromFile("data.txt")
+	cards := newDeck()
 
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
+	cards.shuffle()
 	cards.print()
 }
+
 
