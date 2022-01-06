@@ -155,3 +155,32 @@ func (d deck) print() {
 	}
 }
 ```
+
+### 2.6. Receiver Functions
+
+```go
+func (d deck) print() {
+	for i, card := range d {
+		fmt.Println(i+1, card)
+	}
+}
+```
+
+Any variable of type `deck` now gets access to the `print` method.
+
+The `receiver` sets up `methods` on `variables`.
+
+![Receiver](assets/receiver.png)
+
+```go
+func main() {
+	cards := deck{}
+
+	cards.print()
+}
+
+```
+
+We can imagine that went we call `cards.print()`, the `cards` variable is passed into the `print` method as `d` (`d deck`).
+
+We can think of `receiver` `(d deck)` as the `this` keyword in `OOP`.
