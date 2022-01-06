@@ -52,3 +52,14 @@ Function.
 - package declaration: `package main`
 - import other packages that we need: `import fmt`
 - declare functions, tell Go to do things: `func main() {}`
+
+## 2. Cards Project
+
+Cards
+
+- newDeck: Create a list of playing cards. Essentially an array of strings 
+- print: Log out the contents of a deck of cards
+- shuffle: Shuffles all the cards in a deck
+- deal: create a 'hand' of cards
+- saveToFile: save a list of cards to a file on the local machine
+- newDeckFromFile: load a list of cards from the local machine
