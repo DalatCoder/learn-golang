@@ -184,3 +184,22 @@ func main() {
 We can imagine that went we call `cards.print()`, the `cards` variable is passed into the `print` method as `d` (`d deck`).
 
 We can think of `receiver` `(d deck)` as the `this` keyword in `OOP`.
+
+### 2.7. Creating a new `deck`
+
+```go
+func newDeck() deck {
+	cards := deck{}
+
+	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
+	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
+
+	for _, suite := range cardSuits {
+		for _, value := range cardValues {
+			cards = append(cards, fmt.Sprintf("%v of %v", suite, value))
+		}
+	}
+
+	return cards
+}
+```
