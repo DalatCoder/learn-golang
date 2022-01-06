@@ -331,3 +331,53 @@ func (d deck) shuffle() {
 	}
 }
 ```
+
+### 2.14. Testing with `Go`
+
+- Go testing is not mocha, jasmine, selenium, etc
+- To make a test, create a new file ending in `_test.go`: `deck_test.go`
+- To run all tests in a package, run the command: `go test ./...`
+
+Test Structure
+
+![Image](assets/teststructure.png)
+
+Test Strategy
+
+![Image](assets/teststrategy.png)
+
+Test length of the new deck
+
+```go
+func TestNewDeck(t *testing.T) {
+	d := newDeck()
+	expected := 52
+
+	if len(d) != expected {
+		t.Errorf("Expected deck length of %v but got %v", expected, len(d))
+	}
+}
+```
+
+Continue
+
+```go
+func TestNewDeck(t *testing.T) {
+	d := newDeck()
+	expected := 52
+
+	if len(d) != expected {
+		t.Errorf("Expected deck length of %v but got %v", expected, len(d))
+	}
+
+	fCard := "Ace of Spades"
+	if d[0] != fCard {
+		t.Errorf("Expected first card of %v, but got %v", fCard, d[0])
+	}
+
+	lCard := "King of Clubs"
+	if d[len(d)-1] != lCard {
+		t.Errorf("Expected last card of %v, but got %v", lCard, d[len(d)-1])
+	}
+}
+```
