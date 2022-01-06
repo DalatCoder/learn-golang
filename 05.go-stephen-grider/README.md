@@ -227,3 +227,48 @@ func deal(d deck, handSize int) (deck, deck, error) {
 	return d[:handSize], d[handSize:], nil
 }
 ```
+
+### 2.10. `bytes slice`
+
+A more computer friendly way of thinking about a `string`
+
+![Byte slice](assets/byteslice.png)
+
+### 2.11. `deck to string` (deck to slice of byte for writing to disk)
+
+Type conversion: `[]byte("Hi there")`
+
+Turn a `deck` into a `slice` of `byte`
+
+![Image](assets/turndecktosliceofbyte.png)
+
+`toString` function
+
+```go
+func (d deck) toString() string {
+	return strings.Join([]string(d), ",")
+}
+```
+
+Saving data to the Hard drive
+
+```go
+func (d deck) saveToFile(filename string) error {
+	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+```
+
+Call the `function`
+
+```go
+func main() {
+	cards := newDeck()
+
+	err := cards.saveToFile("data.txt")
+	if err != nil {
+		return 
+	}
+}
+```
+
+

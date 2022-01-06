@@ -1,22 +1,11 @@
 package main
 
-import (
-	"fmt"
-	"log"
-)
-
 func main() {
 	cards := newDeck()
 
-	hand, remaningCards, err := deal(cards, 5)
+	err := cards.saveToFile("data.txt")
 	if err != nil {
-		log.Fatal(err.Error())
+		return 
 	}
-
-	fmt.Println("Deck 1")
-	hand.print()
-
-	fmt.Println("Deck 2")
-	remaningCards.print()
 }
 
