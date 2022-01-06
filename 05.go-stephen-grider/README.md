@@ -123,3 +123,35 @@ for i, card := range cards {
 	fmt.Println(i, card)
 }
 ```
+
+### 2.4. OO Approach vs Go Approach
+
+`Go` is not an `OOP` language.
+
+OOP Approach
+
+![OOP](assets/oopapproach.png)
+
+Go Approach
+
+![Go](assets/goway.png)
+
+Project structure
+
+![Project](assets/structure.png)
+
+### 2.5. Custom type declaration 
+
+```go
+type deck []string
+```
+
+Attach `function` to `custom type`
+
+```go
+func (d deck) print() {
+	for i, card := range d {
+		fmt.Println(i+1, card)
+	}
+}
+```

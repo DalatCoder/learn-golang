@@ -1,12 +1,10 @@
 package main
 
-import "fmt"
-
-func main()  {
-	cards := []string {
-		"Hieu",
-		"Ha",
+func main() {
+	cards := deck{
+		"Ace of Diamonds",
+		"Six of Spades",
 	}
 
-	fmt.Println(cards)
+	cards.print()
 }
