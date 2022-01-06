@@ -92,3 +92,34 @@ func newCard() string {
 	return "Five of Diamonds"
 }
 ```
+
+### 2.3. Slices and For loop
+	
+- Array: fixed length list of things
+- Slice: an array that can grow or shrink (recommended)
+
+Declare a `slice of string`.
+```go
+func main()  {
+	cards := []string {
+		"Hieu",
+		"Ha",
+	}
+
+	fmt.Println(cards)
+}
+```
+
+Add new element to a `slice`
+
+```go
+cards = append(cards, "hello")
+```
+
+Iterate over a `slice`
+
+```go
+for i, card := range cards {
+	fmt.Println(i, card)
+}
+```
