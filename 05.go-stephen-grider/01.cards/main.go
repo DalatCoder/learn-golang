@@ -1,11 +1,14 @@
 package main
 
-func main() {
-	cards := newDeck()
+import "log"
 
-	err := cards.saveToFile("data.txt")
+func main() {
+	cards, err := newDeckFromFile("data.txt")
+
 	if err != nil {
-		return 
+		log.Fatal(err.Error())
 	}
+
+	cards.print()
 }
 

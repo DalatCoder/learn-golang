@@ -271,4 +271,31 @@ func main() {
 }
 ```
 
+### 2.12. Reading from hard drive
 
+Error type
+
+![Error](assets/errortype.png)
+
+Reading from hard drive
+
+```go
+func newDeckFromFile(filename string) (deck, error) {
+	bs, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		return nil, err
+	}
+
+	s := string(bs)
+	ss := strings.Split(s, ",")
+
+	return deck(ss), nil
+}
+```
+
+Using function
+
+```go
+
+```
