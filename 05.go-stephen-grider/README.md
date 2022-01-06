@@ -63,3 +63,32 @@ Cards
 - deal: create a 'hand' of cards
 - saveToFile: save a list of cards to a file on the local machine
 - newDeckFromFile: load a list of cards from the local machine
+
+### 2.1. Variables
+
+```go
+func main()  {
+	var s1 string = "string 1"
+	s2 := "string 2"
+	
+	var s3 string 
+	s3 = "string 3"
+	
+	fmt.Println(s1, s2, s3)
+}
+```
+
+Basic Go types
+
+- bool
+- string
+- int
+- float64
+
+### 2.2. Functions and Return types
+
+```go
+func newCard() string {
+	return "Five of Diamonds"
+}
+```
