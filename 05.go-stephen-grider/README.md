@@ -297,5 +297,13 @@ func newDeckFromFile(filename string) (deck, error) {
 Using function
 
 ```go
+func main() {
+	cards, err := newDeckFromFile("data.txt")
 
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	cards.print()
+}
 ```
