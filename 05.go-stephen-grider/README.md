@@ -203,3 +203,27 @@ func newDeck() deck {
 	return cards
 }
 ```
+
+### 2.8. `slice range` syntax
+
+![Deal](assets/dealhand.png)
+
+![Slice](assets/slice1.png)
+
+Slice range syntax
+
+![Slice range](assets/slicerange.png)
+
+![Hand of card](assets/hand.png)
+
+### 2.9. Multiple return values
+
+```go
+func deal(d deck, handSize int) (deck, deck, error) {
+	if len(d) < handSize {
+		return nil, nil, errors.New("not enough cards")
+	}
+
+	return d[:handSize], d[handSize:], nil
+}
+```

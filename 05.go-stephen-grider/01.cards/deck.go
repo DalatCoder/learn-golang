@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -26,4 +27,12 @@ func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i+1, card)
 	}
+}
+
+func deal(d deck, handSize int) (deck, deck, error) {
+	if len(d) < handSize {
+		return nil, nil, errors.New("not enough cards")
+	}
+
+	return d[:handSize], d[handSize:], nil
 }
