@@ -452,3 +452,82 @@ func main() {
 	fmt.Printf("%+v", jim)
 }
 ```
+
+### 3.2. Struct with receiver functions
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+}
+```
+
+Update `person` with `receiver` (wrong way) 
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func (p person) updateName(newFirstName string) {
+	p.firstName = newFirstName
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+
+	jim.updateName("jimmy")
+	jim.print() // Not work
+}
+```
