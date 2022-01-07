@@ -699,3 +699,27 @@ In `go`, we are allowed to create a `receiver` of `pointer type`, and then, we c
 
 ![Image](assets/referencetype.png)
 
+## 4. Maps
+
+A map is a collection of `key - value` pair.
+
+![Map](assets/map.png)
+
+```go
+package main 
+
+import (
+	"fmt"
+)
+
+func main() {
+	m1 := map[string]string {
+		"a": "a",
+		"b": "b",
+		"c": "c",
+	}
+}
+```
+
+### 4.1. Manipulating map
+
