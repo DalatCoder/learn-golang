@@ -759,3 +759,95 @@ func printMap(c map[string]string) {
 
 ![Map vs Struct](assets/mapstruct.png)
 
+## 5. Interface
+
+### 5.1. Purpose of Interface
+
+We know that 
+
+- Every value has a type
+- Every function has to specify the type of its arguments
+
+So does that mean
+
+- Every function we ever write has to be rewritten to accommodate different types even if
+the logic in it is idential
+
+Write `shuffle` function for `every types`
+
+![Shuffle](assets/shuffle.png)
+
+Tiny program
+
+![Program](assets/bot.png)
+
+### 5.2. Solving problem without interface
+
+```go
+package main 
+
+import "fmt"
+
+type englishBot struct {}
+type spanishBot struct {}
+
+func main() {
+	eb := englishBot {}
+	sp := spanishBot {}
+
+	printGreetingE(eb)
+	printGreetingS(sp)
+}
+
+func (englishBot) getGreeting() string {
+	return "Hello"
+}
+
+func (spanishBot) getGreeting() string {
+	return "Hola"
+}
+
+func printGreetingE(eb englishBot) {
+	fmt.Println(eb.getGreeting())
+}
+
+func printGreetingS(sp spanishBot) {
+	fmt.Println(sp.getGreeting())
+}
+
+```
+
+### 5.3. Interface in practice
+
+```go
+package main 
+
+import "fmt"
+
+type bot interface {
+	getGreeting() string
+}
+
+type englishBot struct {}
+type spanishBot struct {}
+
+func main() {
+	eb := englishBot {}
+	sp := spanishBot {}
+
+	printGreeting(eb)
+	printGreeting(sp)
+}
+
+func (englishBot) getGreeting() string {
+	return "Hello"
+}
+
+func (spanishBot) getGreeting() string {
+	return "Hola"
+}
+
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
+}
+```
