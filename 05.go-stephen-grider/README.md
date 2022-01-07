@@ -531,3 +531,61 @@ func main() {
 	jim.print() // Not work
 }
 ```
+
+### 3.3. Pass by value
+
+![Ram](assets/ram.png)
+
+Pass by value by default.
+
+Pass by value means that whenever we pass some value into a function, `go` will take that value, it's going to 
+copy all of that data inside that `struct` and then place it inside of the `new scope`.
+
+![PBV](assets/receiverr.png)
+
+### 3.4. Structs with `pointers`
+
+Solve the above problem with `pointer`
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+
+	jimPointer := &jim
+	jimPointer.updateName("jimmy")
+	jim.print() // Not work
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+```
