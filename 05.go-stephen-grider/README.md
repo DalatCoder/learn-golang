@@ -718,8 +718,42 @@ func main() {
 		"b": "b",
 		"c": "c",
 	}
+
+	var m2 map[string]string 
+	m2["a"] = "a"
+	m2["b"] = "b"
+
+	m3 := make(map[string]string)
+	m3["a"] = "a"
+	m3["b"] = "b"
 }
 ```
 
-### 4.1. Manipulating map
+### 4.1. Iterate over a map
+
+![Map](assets/iterate.png)
+
+```go
+package main 
+
+import "fmt"
+
+func main() {
+	colors := map[string]string {
+		"red": "#ff0000",
+		"green": "#00ff00",
+		"blue": "#0000ff",
+	}
+
+	printMap(colors)
+}
+
+func printMap(c map[string]string) {
+	for color, hex := range c {
+		fmt.Println(color, hex)
+	}
+}
+```
+
+### 4.2. Difference between `map` and `struct`
 
