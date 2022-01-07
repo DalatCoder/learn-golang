@@ -418,3 +418,37 @@ func main() {
 	fmt.Println(alex, john, goo)
 }
 ```
+
+### 3.1. Embedding Structs
+
+![Struct](assets/embeddingstruct.png)
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	fmt.Printf("%+v", jim)
+}
+```
