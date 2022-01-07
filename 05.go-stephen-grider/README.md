@@ -757,3 +757,5 @@ func printMap(c map[string]string) {
 
 ### 4.2. Difference between `map` and `struct`
 
+![Map vs Struct](assets/mapstruct.png)
+
