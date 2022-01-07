@@ -589,3 +589,173 @@ func (pointerToPerson *person) updateName(newFirstName string) {
 }
 
 ```
+
+Solve the above problem with `pointer`
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+
+	jimPointer := &jim
+	jimPointer.updateName("jimmy")
+	jim.print() // Not work
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+```
+
+### 3.5. Pointer operations
+
+- `&variable`: give me the memory address of the value this variable is pointing at
+- `*pointer`: give me the value this memory address is pointing at
+
+![Pointer](assets/pointer.png)
+
+![Image](assets/distingush.png)
+
+- `&variable`: give me the memory address of the value this variable is pointing at
+- `*pointer`: give me the value this memory address is pointing at
+
+![Pointer](assets/pointer.png)
+
+![Image](assets/distingush.png)
+
+![Image](assets/review.png)
+
+### 3.6. Pointer shortcut
+
+```go
+func main() {
+	jim := person{}
+
+	jimPointer := &jim
+	jimPointer.updateName("hieu")
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+```
+
+Using `shortcut`
+
+```go
+func main() {
+	jim := person{}
+
+	jim.updateName("hieu")
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+```
+
+- `jim` is of type `person`
+- `receiver (pointerToPerson *person)` is of type `*person` (a `pointer` point to `person`)
+
+So, we have `type mismatching`
+
+In `go`, we are allowed to create a `receiver` of `pointer type`, and then, we can call with either of 
+- `jim.updateName("hieu")` => auto converse to `pointer` (`&jim`)
+- `&jim.updateName("hieu"`
+
+![image](assets/ppoin.png)
+
+### 3.7. Reference & Value types
+
+`Go` is passed by `value` language.
+
+![Image](assets/referencetype.png)
+
+## 4. Maps
+
+A map is a collection of `key - value` pair.
+
+![Map](assets/map.png)
+
+```go
+package main 
+
+import (
+	"fmt"
+)
+
+func main() {
+	m1 := map[string]string {
+		"a": "a",
+		"b": "b",
+		"c": "c",
+	}
+
+	var m2 map[string]string 
+	m2["a"] = "a"
+	m2["b"] = "b"
+
+	m3 := make(map[string]string)
+	m3["a"] = "a"
+	m3["b"] = "b"
+}
+```
+
+### 4.1. Iterate over a map
+
+![Map](assets/iterate.png)
+
+```go
+package main 
+
+import "fmt"
+
+func main() {
+	colors := map[string]string {
+		"red": "#ff0000",
+		"green": "#00ff00",
+		"blue": "#0000ff",
+	}
+
+	printMap(colors)
+}
+
+func printMap(c map[string]string) {
+	for color, hex := range c {
+		fmt.Println(color, hex)
+	}
+}
+```
+
+### 4.2. Difference between `map` and `struct`
+
+![Map vs Struct](assets/mapstruct.png)
+
