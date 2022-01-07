@@ -381,3 +381,40 @@ func TestNewDeck(t *testing.T) {
 	}
 }
 ```
+
+## 3. Organizing Data with `struct`
+
+Struct 
+- Data structure
+- Collection of properties that are related together
+
+![Image](assets/struct.png)
+
+![Person](assets/person.png)
+
+```go
+package main 
+
+import "fmt"
+
+type person struct {
+	firstName string
+	lastName string
+}
+
+func main() {
+	alex := person {
+		firstName: "alex",
+		lastName: "alex",
+	}
+
+	john := person { "john", "john" }
+
+	// Assign value zero to every fields
+	var goo person 
+	goo.firstName = "goo"
+	goo.lastName = "goo"
+
+	fmt.Println(alex, john, goo)
+}
+```
