@@ -381,3 +381,211 @@ func TestNewDeck(t *testing.T) {
 	}
 }
 ```
+
+## 3. Organizing Data with `struct`
+
+Struct 
+- Data structure
+- Collection of properties that are related together
+
+![Image](assets/struct.png)
+
+![Person](assets/person.png)
+
+```go
+package main 
+
+import "fmt"
+
+type person struct {
+	firstName string
+	lastName string
+}
+
+func main() {
+	alex := person {
+		firstName: "alex",
+		lastName: "alex",
+	}
+
+	john := person { "john", "john" }
+
+	// Assign value zero to every fields
+	var goo person 
+	goo.firstName = "goo"
+	goo.lastName = "goo"
+
+	fmt.Println(alex, john, goo)
+}
+```
+
+### 3.1. Embedding Structs
+
+![Struct](assets/embeddingstruct.png)
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	fmt.Printf("%+v", jim)
+}
+```
+
+### 3.2. Struct with receiver functions
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+}
+```
+
+Update `person` with `receiver` (wrong way) 
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func (p person) updateName(newFirstName string) {
+	p.firstName = newFirstName
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+
+	jim.updateName("jimmy")
+	jim.print() // Not work
+}
+```
+
+### 3.3. Pass by value
+
+![Ram](assets/ram.png)
+
+Pass by value by default.
+
+Pass by value means that whenever we pass some value into a function, `go` will take that value, it's going to 
+copy all of that data inside that `struct` and then place it inside of the `new scope`.
+
+![PBV](assets/receiverr.png)
+
+### 3.4. Structs with `pointers`
+
+Solve the above problem with `pointer`
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+
+	jimPointer := &jim
+	jimPointer.updateName("jimmy")
+	jim.print() // Not work
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+```
