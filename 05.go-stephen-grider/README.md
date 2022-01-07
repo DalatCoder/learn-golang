@@ -692,3 +692,10 @@ In `go`, we are allowed to create a `receiver` of `pointer type`, and then, we c
 - `&jim.updateName("hieu"`
 
 ![image](assets/ppoin.png)
+
+### 3.7. Reference & Value types
+
+`Go` is passed by `value` language.
+
+![Image](assets/referencetype.png)
+
