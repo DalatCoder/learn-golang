@@ -589,3 +589,106 @@ func (pointerToPerson *person) updateName(newFirstName string) {
 }
 
 ```
+
+Solve the above problem with `pointer`
+
+```go
+package main 
+
+import "fmt"
+
+type contactInfo struct {
+	email string 
+	zipCode int
+}
+
+type person struct {
+	firstName string
+	lastName string
+	contact contactInfo
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func main() {
+	jim := person {
+		firstName: "jim",
+		lastName: "jim",
+		contact: contactInfo {
+			email: "jim@jim.com",
+			zipCode: 94000,
+		},
+	}
+
+	jim.print()
+
+	jimPointer := &jim
+	jimPointer.updateName("jimmy")
+	jim.print() // Not work
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+```
+
+### 3.5. Pointer operations
+
+- `&variable`: give me the memory address of the value this variable is pointing at
+- `*pointer`: give me the value this memory address is pointing at
+
+![Pointer](assets/pointer.png)
+
+![Image](assets/distingush.png)
+
+- `&variable`: give me the memory address of the value this variable is pointing at
+- `*pointer`: give me the value this memory address is pointing at
+
+![Pointer](assets/pointer.png)
+
+![Image](assets/distingush.png)
+
+![Image](assets/review.png)
+
+### 3.6. Pointer shortcut
+
+```go
+func main() {
+	jim := person{}
+
+	jimPointer := &jim
+	jimPointer.updateName("hieu")
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+```
+
+Using `shortcut`
+
+```go
+func main() {
+	jim := person{}
+
+	jim.updateName("hieu")
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+```
+
+- `jim` is of type `person`
+- `receiver (pointerToPerson *person)` is of type `*person` (a `pointer` point to `person`)
+
+So, we have `type mismatching`
+
+In `go`, we are allowed to create a `receiver` of `pointer type`, and then, we can call with either of 
+- `jim.updateName("hieu")` => auto converse to `pointer` (`&jim`)
+- `&jim.updateName("hieu"`
+
+![image](assets/ppoin.png)
