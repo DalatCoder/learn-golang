@@ -759,3 +759,242 @@ func printMap(c map[string]string) {
 
 ![Map vs Struct](assets/mapstruct.png)
 
+## 5. Interface
+
+### 5.1. Purpose of Interface
+
+We know that 
+
+- Every value has a type
+- Every function has to specify the type of its arguments
+
+So does that mean
+
+- Every function we ever write has to be rewritten to accommodate different types even if
+the logic in it is idential
+
+Write `shuffle` function for `every types`
+
+![Shuffle](assets/shuffle.png)
+
+Tiny program
+
+![Program](assets/bot.png)
+
+### 5.2. Solving problem without interface
+
+```go
+package main 
+
+import "fmt"
+
+type englishBot struct {}
+type spanishBot struct {}
+
+func main() {
+	eb := englishBot {}
+	sp := spanishBot {}
+
+	printGreetingE(eb)
+	printGreetingS(sp)
+}
+
+func (englishBot) getGreeting() string {
+	return "Hello"
+}
+
+func (spanishBot) getGreeting() string {
+	return "Hola"
+}
+
+func printGreetingE(eb englishBot) {
+	fmt.Println(eb.getGreeting())
+}
+
+func printGreetingS(sp spanishBot) {
+	fmt.Println(sp.getGreeting())
+}
+
+```
+
+### 5.3. Interface in practice
+
+```go
+package main 
+
+import "fmt"
+
+type bot interface {
+	getGreeting() string
+}
+
+type englishBot struct {}
+type spanishBot struct {}
+
+func main() {
+	eb := englishBot {}
+	sp := spanishBot {}
+
+	printGreeting(eb)
+	printGreeting(sp)
+}
+
+func (englishBot) getGreeting() string {
+	return "Hello"
+}
+
+func (spanishBot) getGreeting() string {
+	return "Hola"
+}
+
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
+}
+```
+
+### 5.4. Rule of `interface`
+
+![Interface](assets/interface.png)
+
+Create value directly.
+
+![Concrete](assets/concrete.png)
+
+![Note](assets/inote.png)
+
+### 5.5. The `http` package
+
+Read the docs at: `golang.org/pkg/net/http`
+
+```go
+package main 
+
+import "fmt"
+
+func main() {
+	resp, err := http.Get("http://google.com")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Println(resp)
+}
+```
+
+We does not get the body of the `response`
+
+![Response](assets/response.png)
+
+Embedded `interface` syntax
+
+```go
+type ReadCloser interface {
+	Reader 
+	Closer 
+}
+
+type Reader interface {
+	Read([]byte) (int, error)
+}
+
+type Closer interface {
+	Close() error
+}
+```
+
+The `reader interface`
+
+![Reader](assets/reader.png)
+
+Solve through `reader interface`
+
+![Interface](assets/interface1.png)
+
+![Interface](assets/interface2.png)
+
+What `read` function suppose to do?
+
+- Read method accept a `slice` at its argument
+- Then, `read` method change the `slice`
+
+Code example for `read interface`
+
+```go
+package main 
+
+import "fmt"
+
+func main() {
+	resp, err := http.Get("http://google.com")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	// Make an empty slice that has space for 99999 elements
+	bs := make([]byte, 99999)
+	resp.Body.read(bs)
+
+	fmt.Println(string(bs))
+}
+```
+
+![BS](assets/bs1.png)
+
+The `writer interface`
+
+```go
+package main 
+
+import "fmt"
+
+func main() {
+	resp, err := http.Get("http://google.com")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	io.Copy(os.Stdout, resp.Body)
+}
+```
+
+![Writer](assets/writer.png)
+
+![Writer](assets/writer1.png)
+
+The `io.Copy function`
+
+`func Copy(dst Writer, src Reader) { written int64, err error }`
+
+- `os.Stdout` implements `Writer interface`
+- `resp.Body` implements `Reader interface`
+
+![Write](assets/writer2.png)
+
+The implement of `io.Copy function` (`cmd` + `click`)
+
+Write a custom `type` implement `writer` interface.
+
+```go
+package main 
+
+import "fmt"
+
+type logWriter struct {}
+
+func main() {
+	resp, err := http.Get("http://google.com")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	lw := logWriter{}
+
+	io.Copy(lw, resp.Body)
+}
+
+func (logWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs))
+
+	return len(bs), nil
+}
+```
