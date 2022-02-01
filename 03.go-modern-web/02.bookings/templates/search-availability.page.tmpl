@@ -5,15 +5,22 @@
 
         <h1 class="my-5 text-center">Search for Availability</h1>
 
-        <form action="" method="post" class="row g-3">
-            <div class="mb-3 col">
-                <label for="start_date" class="form-label">Starting Date</label>
-                <input type="date" class="form-control" id="start_date" name="start_date">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form action="/search-availability" method="post" class="row g-3">
+                    <div class="mb-3 col">
+                        <label for="start_date" class="form-label">Starting Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date">
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="end_date" class="form-label">Ending Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date">
+                    </div>
+                    <hr>
+                    <input type="submit" value="Check Availability" class="btn btn-success w-100">
+                </form>
             </div>
-            <div class="mb-3 col">
-                <label for="end_date" class="form-label">Ending Date</label>
-                <input type="date" class="form-control" id="end_date" name="end_date">
-            </div>
-        </form>
+        </div>
+
     </div>
 {{ end }}
