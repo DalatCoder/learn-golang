@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b5b1a4f-c28c-40ff-91b2-9474def8222e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/generals-quarters.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/marjors-suite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/bootstrap.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/vendor/bootstrap/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/vendor/sweetalert/sweetalert2@11.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/contact.page.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/generals.page.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/majors.page.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/make-reservation.page.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/search-availability.page.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/working-html/static/vendor/sweetalert/sweetalert2@11.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/web/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/web/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/handlers/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handlers/handlers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/render/render.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/render/render.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.page.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.layout.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.layout.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.page.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/working-html/reservation.html" beforeDir="false" afterPath="$PROJECT_DIR$/working-html/reservation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search-availability.page.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search-availability.page.tmpl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
