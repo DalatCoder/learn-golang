@@ -84,3 +84,39 @@ table transfer {
 - Export `dbdiagram.io` for `PostgreSQL`
 - Open the downloaded file & copy all the content inside it
 - Paste to the `SQL window` and execute those queries
+
+## 3. Database Migration
+
+Using `golang-migrate` library (`CLI tool`), (learn more)[https://github.com/golang-migrate/migrate/tree/master/cmd/migrate]
+
+- Inside the project folder, create new folder for storing migration files: `mkdir -p db/migration`
+- Check `golang-migrate` docs: `migrate -help`
+- Create new migrate: `migrate create -ext sql -dir db/migration -seq init_schema`
+- Paste the `sql` content to the `up` file
+- Paste those line to the `down` file:
+  ```sql
+    DROP TABLE IF EXISTS entries;
+    DROP TABLE IF EXISTS transfers;
+    DROP TABLE IF EXISTS accounts;
+  ```
+- Create a `Makefile` for easily interact with the `container`
+
+  ```Makefile
+    postgres:
+      docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
+
+    createdb:
+      docker exec -it postgres12 createdb --username=root --owner=root simple_bank 
+
+    dropdb:
+      docker exec -it postgres12 dropdb simple_bank 
+
+    .PHONY: postgres createdb dropdb
+  ```
+
+- Use the `Makefile`:
+  - Start new container: `make postgres`
+  - Create new db: `make createdb`
+  - Drop db: `make dropdb`
+
+- Run the `migration`: `migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up`
