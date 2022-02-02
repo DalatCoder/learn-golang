@@ -78,3 +78,9 @@ table transfer {
   - user: root
   - password: secret
   - database: root (default the same name as user name)
+
+### 2.3. Create Table using TablePlus
+
+- Export `dbdiagram.io` for `PostgreSQL`
+- Open the downloaded file & copy all the content inside it
+- Paste to the `SQL window` and execute those queries
