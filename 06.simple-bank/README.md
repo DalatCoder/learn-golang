@@ -58,3 +58,23 @@ table transfer {
   }
 }	
 ```
+
+## 2. Install Docker
+
+![Image](assets/dockerimage.png)
+
+### 2.1. Prepare Postgres Container 
+
+- Pulling the postgres image: `docker pull postgres:12-alpine`, using alpine version for smaller size.
+- Run the container: `docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine`
+- Run the command inside the container: `docker exec -it postgres12 psql -U root`
+
+### 2.2. Connect to Postgres using TablePlus
+
+- Open TablePlus
+- Enter connected information
+  - host: localhost
+  - port: 5432
+  - user: root
+  - password: secret
+  - database: root (default the same name as user name)
