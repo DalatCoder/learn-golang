@@ -17,53 +17,24 @@ Application we will build: A simple bank
 Code
 
 ```html
-table accounts as A {
-  id bigserial [pk]
-  owner varchar [not null] 
-  balance bigint [not null]
-  currency varchar [not null]
-  created_at timestamptz [default: `now()`]
-  
-  // Search account by an owner
-  indexes {
-    owner
-  }
-}
-
-// Record all changes to the accounts table
-table entries {
-  id bigserial [pk]
-  account_id bigint [not null, ref: > A.id]
-  amount bigint [not null, note: 'can be positive or negative']
-  created_at timestamptz [default: `now()`]
-  
-  // List all entries of an account
-  indexes {
-    account_id
-  }
-}
-
-// Record all money transfer between two accounts
-table transfer {
-  id bigserial [pk]
-  from_account_id bigint [not null, ref: > A.id]
-  to_account_id bigint [not null, ref: > A.id]
-  amount bigint [not null, note: 'must be positive']
-  created_at timestamptz [default: `now()`]
-  
-  indexes {
-    from_account_id
-    to_account_id
-    (from_account_id, to_account_id)
-  }
-}	
+table accounts as A { id bigserial [pk] owner varchar [not null] balance bigint
+[not null] currency varchar [not null] created_at timestamptz [default: `now()`]
+// Search account by an owner indexes { owner } } // Record all changes to the
+accounts table table entries { id bigserial [pk] account_id bigint [not null,
+ref: > A.id] amount bigint [not null, note: 'can be positive or negative']
+created_at timestamptz [default: `now()`] // List all entries of an account
+indexes { account_id } } // Record all money transfer between two accounts table
+transfer { id bigserial [pk] from_account_id bigint [not null, ref: > A.id]
+to_account_id bigint [not null, ref: > A.id] amount bigint [not null, note:
+'must be positive'] created_at timestamptz [default: `now()`] indexes {
+from_account_id to_account_id (from_account_id, to_account_id) } }
 ```
 
 ## 2. Install Docker
 
 ![Image](assets/dockerimage.png)
 
-### 2.1. Prepare Postgres Container 
+### 2.1. Prepare Postgres Container
 
 - Pulling the postgres image: `docker pull postgres:12-alpine`, using alpine version for smaller size.
 - Run the container: `docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine`
@@ -87,18 +58,20 @@ table transfer {
 
 ## 3. Database Migration
 
-Using `golang-migrate` library (`CLI tool`), (learn more)[https://github.com/golang-migrate/migrate/tree/master/cmd/migrate]
+Using `golang-migrate` library (`CLI tool`), [learn more](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate)
 
 - Inside the project folder, create new folder for storing migration files: `mkdir -p db/migration`
 - Check `golang-migrate` docs: `migrate -help`
 - Create new migrate: `migrate create -ext sql -dir db/migration -seq init_schema`
 - Paste the `sql` content to the `up` file
 - Paste those line to the `down` file:
+
   ```sql
     DROP TABLE IF EXISTS entries;
     DROP TABLE IF EXISTS transfers;
     DROP TABLE IF EXISTS accounts;
   ```
+
 - Create a `Makefile` for easily interact with the `container`
 
   ```Makefile
@@ -106,17 +79,112 @@ Using `golang-migrate` library (`CLI tool`), (learn more)[https://github.com/gol
       docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
 
     createdb:
-      docker exec -it postgres12 createdb --username=root --owner=root simple_bank 
+      docker exec -it postgres12 createdb --username=root --owner=root simple_bank
 
     dropdb:
-      docker exec -it postgres12 dropdb simple_bank 
+      docker exec -it postgres12 dropdb simple_bank
 
     .PHONY: postgres createdb dropdb
   ```
 
 - Use the `Makefile`:
+
   - Start new container: `make postgres`
   - Create new db: `make createdb`
   - Drop db: `make dropdb`
 
 - Run the `migration`: `migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up`
+
+## 4. CRUD
+
+- Create: Insert new records to the database
+- Read: Select or search for records in the database
+- Update: Change some fields of the record in the database
+- Delete: Remove records from the database
+
+### 4.1. Implement CRUD in Golang
+
+Things to consider
+
+- DATABASE/SQL
+
+  - Standard library
+  - Very fast & straightforward
+  - Manual mapping SQL fields to variables
+  - Easy to make mistakes, not caught until runtime
+
+- GORM
+
+  - CRUD functions already implemented, very short production code
+  - Must learn to write queries using gorm's function
+  - Run slowly on high load
+
+- SQLX
+
+  - Quite fast & easy to use
+  - Fields mapping via query text & struct tags
+  - Failure won't occur until runtime
+
+- SQLC
+
+  - Very fast & easy to use
+  - Automatic code generation
+  - Catch SQL query errors before generating codes
+
+### 4.2. CRUD with `sqlc`
+
+- Intall: `yay -S sqlc`
+- Init `sqlc` settings: `sqlc init`
+
+```yaml
+version: '1'
+packages:
+  - name: 'db'
+    path: './db/sqlc'
+    queries: './db/query/'
+    schema: './db/migration/'
+    engine: 'postgresql'
+    emit_json_tags: true
+    emit_prepared_queries: false
+    emit_interface: true
+    emit_exact_table_names: false
+    emit_empty_slices: true
+```
+
+- Write raw query in `db/query`
+
+```sql
+-- name: CreateAccount :one
+INSERT INTO accounts
+    ( owner, balance, currency)
+VALUES
+    ( $1, $2, $3)
+RETURNING *;
+
+-- name: GetAccount :one
+SELECT *
+FROM accounts
+WHERE id = $1
+LIMIT 1;
+
+-- name: ListAccounts :many
+SELECT *
+FROM accounts
+WHERE owner = $1
+ORDER BY id
+LIMIT $2
+OFFSET
+$3;
+
+-- name: UpdateAccount :one
+UPDATE accounts
+SET balance = $2
+WHERE id = $1
+RETURNING *;
+
+-- name: DeleteAccount :exec
+DELETE FROM accounts
+WHERE id = $1;
+```
+
+- Generate code from raw query: `sqlc generate`
