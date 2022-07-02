@@ -28,11 +28,10 @@ UPDATE;
 -- name: ListAccounts :many
 SELECT *
 FROM accounts
-WHERE owner = $1
 ORDER BY id
-LIMIT $2
+LIMIT $1
 OFFSET
-$3;
+$2;
 
 -- name: UpdateAccount :one
 UPDATE accounts
