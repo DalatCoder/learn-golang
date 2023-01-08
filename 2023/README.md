@@ -299,3 +299,46 @@ var p1 = "c:\\my\\dir\\file"
 // raw string literal
 var p2 = `c:\my\dir\file`
 ```
+
+### How to get the length of a `utf-8` string?
+
+`len` built-in function returns the length of a string value in `bytes`
+
+```go
+func main() {
+    name := "carl"
+    fmt.Println(len(name)) // 4
+}
+```
+
+For `utf-8` character, `len` only returns the length of a string value in `bytes`
+
+![Image](assets/stringLen.png)
+
+`utf8` package's `RuneCountInString` function finds the
+number of characters in a string.
+
+```go
+import ( "fmt"; "unicode/utf8" )
+
+func main() {
+    name := "Hiếu"
+
+    fmt.Println(utf8.RuneCountInString(name))
+}
+```
+
+> There is no sub-packaging in Go
+
+- `unicode/utf8`
+- `utf8` package is just under the `unicode` folder
+- this is only for the package organization purposes
+- the real name of the package is only `utf8`
+
+> A `rune` can represent `English` and `Non-English` characters
+> as well.
+
+For example: `hiếu` has 4 `runes` (aka: `codepoints`)
+
+So, when you work with `non-english` characters and first
+string value is `utf8` encoded, you should always use this function `utf8.RuneCountInString(name)`
