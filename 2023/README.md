@@ -272,3 +272,30 @@ p := player.Score; // DO
 const MAX_TIME int // DONT
 const MaxTime int // DO
 ```
+
+### What is a Raw string literal?
+
+Time to learn about the basics of strings
+
+- Raw string literal
+- Concatenation
+- String length
+- Project
+
+```go
+// string literal
+var s1 = "<html?>\n\t<body>\"Hello\"</body>\n</html>"
+
+// raw string literal
+var s2 = `
+    <html>
+        <body>"Hello"</body>
+    </html>
+`
+
+// string literal
+var p1 = "c:\\my\\dir\\file"
+
+// raw string literal
+var p2 = `c:\my\dir\file`
+```
