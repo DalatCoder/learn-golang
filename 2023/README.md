@@ -36,3 +36,52 @@ func main() {
 ```
 
 ![Image](assets/variables.png)
+
+### Example: `path seperator`
+
+Let's learn how to use multiple result returning expressions
+in multiple assignments
+
+`path package` provides utility functions for working with `url path` strings
+
+`Split` function signature
+
+- Input: `path` string
+- Output: `directory` and `file`, both have type of `string`
+
+```go
+func Split(path string) (dir, file string) {}
+```
+
+![Image](assets/pathSeperator.png)
+
+```go
+import ( "fmt"; "path" )
+
+func main() {
+    var dir, file string
+    dir, file = path.Split("css/main.css")
+
+    // discard
+    // _, file = path.Split("css/main.css")
+
+    fmt.Println("dir: ", dir)
+    fmt.Println("file: ", file)
+}
+```
+
+Or using `short declaration`: `:=`
+
+```go
+import ( "fmt"; "path" )
+
+func main() {
+    dir, file := path.Split("css/main.css")
+
+    // discard
+    // _, file := path.Split("css/main.css")
+
+    fmt.Println("dir: ", dir)
+    fmt.Println("file: ", file)
+}
+```
