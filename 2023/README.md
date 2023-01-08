@@ -342,3 +342,46 @@ For example: `hiếu` has 4 `runes` (aka: `codepoints`)
 
 So, when you work with `non-english` characters and first
 string value is `utf8` encoded, you should always use this function `utf8.RuneCountInString(name)`
+
+### Example: Banger: Yell it back!
+
+Get input + Bang it
+
+```sh
+go run main.go hey
+# => HEY!!!
+
+go run main.go hello
+# => HELLO!!!!!
+```
+
+`string package` provides utility functions for manipulating
+`strings`
+
+[Docs](https://golang.org/pkg/strings/)
+
+Get the `string` length
+
+- `len(msg)`: only works correctly with the `non-unicode` characters
+
+- `utf8.RuneCountInString(name)`: works with the `non-unicode` and `unicode` characters
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+    "strings"
+)
+
+func main() {
+    msg := os.Args[1]
+    l := len(msg)
+
+    s := msg + strings.Repeat("!", l)
+    s = strings.ToUpper(s)
+
+    fmt.Println(s)
+}
+```
