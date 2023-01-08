@@ -141,3 +141,25 @@ func main() {
     width, color := 50, "red"
 }
 ```
+
+### Let's convert a value
+
+GO just wants you to be explicit on everything. That's why it
+doesn't let you assign a `float64` to an `int` value.
+
+`Type conversion`: changes the `type` of a value to `another type`
+
+Which value you convert first matters.
+
+Signature: `type(value)`
+
+```go
+package main
+
+func main() {
+    speed := 100 // int
+    force := 2.5 // float64
+
+    speed = int( float64(speed) * force )
+}
+```
