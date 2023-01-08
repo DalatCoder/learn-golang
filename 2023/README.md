@@ -85,3 +85,59 @@ func main() {
     fmt.Println("file: ", file)
 }
 ```
+
+### When to use a `short declaration`?
+
+`Short` vs `Normal`
+
+Use `normal declaration`:
+
+- if you don't know the `initial value`
+- when you need a `package scoped` variable
+- when you want to group variables together for greater readability
+
+```go
+package main
+
+// version := 0
+var version int
+
+func main() {
+    // score := 0 // DONT!
+    var score int // already score = 0
+
+    var (
+        // related:
+        video string
+
+        // closely related
+        duration int
+        current it
+    )
+}
+```
+
+Use `short declaration`:
+
+- we mostly perfer using `short declaration`
+- if you know the `initial value`
+- to keep the code concise
+- for `redeclaration`
+- using inside `if` and `switch` statements to create variables that belong to those statements only
+
+```go
+package main
+
+func main() {
+    // var width, height = 100, 50 // DONT!
+    width, height := 100, 50
+
+    // DONT!
+    width = 50 // assigns 50 to width
+    color := "red" // new variable: color
+
+    // using redeclaration
+    // change width to 50, declare color = red
+    width, color := 50, "red"
+}
+```
