@@ -163,3 +163,112 @@ func main() {
     speed = int( float64(speed) * force )
 }
 ```
+
+### Example: Get input from terminal
+
+`os package` allows you to access to `operating system functionalities`
+
+`Args` variable belongs to the `os package`
+
+`var Args []string`:
+
+- a slice can store multiple values
+- Args's type is a `slice of string`
+
+When you run a Go program, Go puts `the command-line arguments` into `Args` variable automatically
+
+#### Learn the basics of `os.Args
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+    fmt.Printf("%v\n", os.Args)
+
+    fmt.Println("Path:", os.Args[0])
+    fmt.Println("1st argument", os.Args[1])
+    fmt.Println("2nd argument", os.Args[2])
+
+    fmt.Println("Number of items inside os.Args:", len(os.Args))
+}
+```
+
+#### Naming things: Recommendations
+
+> There only two hard things in computer science:
+> cache invalidation and naming things
+
+- `non-idiomatic` means `not preferred` usage
+- `idiomatic` means `preffered` usage
+
+Some common abbreviations used in `Go`
+
+- `var s string`: string
+- `var i int`: index
+- `var num int`: number
+- `var msg string`: message
+- `var v string`: value
+- `var val string`: value
+- `var fv string` flag value
+- `var err error`: error value
+- `var args []string`: arguments
+- `var seen bool`: has seen?
+- `var parsed bool`: parsing ok?
+- `var buf []byte`: buffer
+- `var off int`: offset
+- `var op int`: operation
+- `var opRead int`: read operation
+- `var l int`: length
+- `var n int`: number of number of
+- `var m int`: another number
+- `var c int`: capacity
+- `var c int`: character
+- `var a int`: array
+- `var r rune`: rune
+- `var sep string`: separator
+- `var src int`: source
+- `var dst int`: destination
+- `var b byte`: byte
+- `var b []byte`: buffer
+- `var buf []byte`: buffer
+- `var w io.Writeer`: writer
+- `var r io.Reader`: reader
+- `var pos int`: position
+
+Recommendations
+
+- Use the first few letters of the words: `var fv string // flag value`
+- Use fewer letters in smaller scopes (`block` | `function`)
+
+```go
+var bytesRead int // number of bytes read // DONT
+var n int // number of bytes read
+```
+
+- Use the complete words in larger scopes (`package scope`)
+- Use `mixedCaps` like this
+- Use all `captitals` for acronyms
+
+```go
+var localAPI string // DONT
+var localApi string // DO
+```
+
+- Do not stutter: do not use the same words again and again
+
+```go
+var p := player.PlayerScore; // DONT
+p := player.Score; // DO
+```
+
+- Do not use `under_scores` or `LIKE_THIS`
+
+```golang
+const MAX_TIME int // DONT
+const MaxTime int // DO
+```
