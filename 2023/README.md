@@ -810,3 +810,87 @@ func main() {
     fmt.Printf("%s * 2 %d\n", n, n*2)
 }
 ```
+
+### Switch statement
+
+A `switch` statement is similar to an `if` statement but
+with a `different syntax`
+
+There are 2 types of `switch` statements
+
+- `expression switches`
+- `type switches`: related to `interface` type (learn later)
+
+```go
+func main() {
+    city := "Paris"
+
+    switch city {
+        case "Paris":
+            fmt.Println("France")
+
+        case "Tokyo":
+            fmt.Println("Japan")
+    }
+}
+```
+
+- Switch statement looks for an `equal value`.
+- Switch's condition will be compared for each case condition
+- case clause creates an exclusive block only for itself
+- behind the scenes, `Go` convert a `switch` statement into
+  an `if` statement
+
+Rules
+
+- `value` inside the `case` conditions should be unique among
+  the other `case` conditions
+- `typeof` value to swtich and the case condition expression
+  should be comparable
+
+```go
+func main() {
+    city := "Paris"
+
+    switch city {
+        case "Paris":
+            a := 1
+            fmt.Println("France")
+            break
+
+        case "Tokyo":
+            fmt.Println("Japan")
+            break
+
+        default:
+            fmt.Println("Unknown")
+    }
+}
+```
+
+- `Go` automatically add `break` statement
+- the `default` clause is executed when no `cases` match
+
+### Use multiple values in case conditions
+
+Similar to logical `OR` `||`
+
+```go
+func main() {
+    switch city {
+        case "Paris", "Lyon":
+            fmt.Println("France")
+    }
+}
+```
+
+You can add as many conditions as you want. But keep it
+readdable
+
+```go
+func main() {
+    if city == "Paris" || city == "Lyon" {
+        // behind the scenes
+    }
+}
+```
