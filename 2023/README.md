@@ -615,3 +615,95 @@ func main() {
     fmt.Printf(accessOK, u)
 }
 ```
+
+### What is a `nil` value
+
+`nil` is a predeclared identifier, it can be used everywhere
+without importing any package.
+
+`nil` value means that the value is `not initialized` yet.
+
+- `js`: null
+- `py`: None
+- `java`: null
+- `ruby`: nil
+
+`nil` is `zero value` for `pointer-based` types
+
+- `pointers`
+- `slices`
+- `maps`
+- `interfaces`
+- `channels`
+
+In `Go`, new value can be `untyped` and `typed` depending
+on the `context`.
+
+In `Go`, `nil` value is also `extensively` used for error
+handling
+
+```go
+err := do()
+
+// nil means there is no error
+if err == nil {
+
+}
+
+// !nil mean there is an error
+if err != nil {
+
+}
+```
+
+### What is an `error` value?
+
+`Go` doesn't have `try..catch` statements.
+
+In `Go`, some functions always work without any `errors`
+
+- `strconv.Itoa`: convert `int` to `string`, never returns errors. So we don't need to handle any error
+
+```go
+func main() {
+    s := strconv.Itoa(42)
+    fmt.Println(s)
+}
+```
+
+- `strconv.Atoi` sometimes fails, so you've to handle the `error`
+
+```go
+func main() {
+    n, err := strconv.Atoi(os.Args[1])
+
+    if err == nil {
+        fmt.Println("Converted number:", n)
+    } else {
+        fmt.Println("Invalid number")
+        fmt.Println("Error:", err)
+    }
+}
+```
+
+### Error handling examples
+
+Using `if` statement to check for any errors
+
+```go
+package main
+
+func main() {
+    age := os.Args[1]
+
+    n, err := strconv.Atoi(age)
+
+    // check error immediately
+    if err != nil {
+        fmt.Println("ERROR:", err)
+        return
+    }
+
+    fmt.Printf("SUCCESS: Converted %q to %d\n", age, n)
+}
+```
