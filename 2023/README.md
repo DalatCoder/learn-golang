@@ -343,7 +343,7 @@ For example: `hiếu` has 4 `runes` (aka: `codepoints`)
 So, when you work with `non-english` characters and first
 string value is `utf8` encoded, you should always use this function `utf8.RuneCountInString(name)`
 
-### Example: Banger: Yell it back!
+### Example: Banger: Yell it back
 
 Get input + Bang it
 
@@ -383,5 +383,52 @@ func main() {
     s = strings.ToUpper(s)
 
     fmt.Println(s)
+}
+```
+
+### Constants and `iota`
+
+`iota` is a built-on `constant generator` which generates
+ever increasing numbers
+
+```go
+func main() {
+    const (
+        monday = 0
+        tuesday = 1
+        wednesday = 2
+        thursday = 3
+        friday = 4
+        saturday = 5
+        sunday = 6
+    )
+
+    // using iota to generate random number
+    const (
+        monday = iota // 0 1 2 3 4 5 6
+        tuesday
+        wednesday
+        thursday
+        friday
+        saturday
+        sunday
+    )
+}
+```
+
+You can use expressions with `iota` So, the other `constants`
+will `repeat` the expressions.
+
+```go
+func main() {
+    const (
+        monday = iota + 1 // 1 2 3 4 5 6 7
+        tuesday
+        wednesday
+        thursday
+        friday
+        saturday
+        sunday
+    )
 }
 ```
