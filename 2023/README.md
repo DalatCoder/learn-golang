@@ -461,3 +461,157 @@ func main() {
     fmt.Printf("total: %d success: %d/%d \n", ops, ok, fail)
 }
 ```
+
+### What is an escape sequence?
+
+Allows you to represent special characters
+
+Go `interprets` string values
+
+- `\n` is for printing a new line
+- `\n` is an escape sequence
+- `\n` is one character
+- `hi\nhi` has 5 characters
+- when a character starts with a `\`, it might be an `escape sequence`
+
+- `\\`: `\`
+- `\n`: new line
+- `\"`: `"`
+
+### Example: How to print using `Printf`
+
+Printing types: you can use `printf` to print the `types of values` (variable, constants, so on ...)
+
+```go
+func main() {
+    var speed int
+    var heat float64
+    var off bool
+    var brand string
+
+    n := 1
+
+    // %T means type
+    fmt.Printf("%T\n", speed) // int
+    fmt.Printf("%T\n", heat) // float64
+
+    // %v means value
+    fmt.Printf("%v", n) // 1
+}
+```
+
+Argument index
+
+```go
+func main() {
+    var (
+        a = 1
+        b = 2
+        c = a + b
+    )
+
+    fmt.Printf("%v + %v = %v || %[2]v + %[1]v = %[3]v",
+        a, b, c
+    )
+}
+```
+
+### The verbs can be type-safe too
+
+```go
+func main() {
+    var (
+        str = "hello"
+    )
+
+    // warning
+    fmt.Printf("%d", str)
+
+    // OK
+    fmt.Printf("%s", str)
+}
+```
+
+Working with `precision`
+
+```go
+func main() {
+    var (
+        f = 3.14
+    )
+
+    fmt.Printf("%v", f)
+    fmt.Printf("%f", f)
+    fmt.Printf("%.0f", f)
+    fmt.Printf("%.1f", f)
+}
+```
+
+### If statement
+
+This `if` statement will only print `godd` when the `score`
+is `higher` than `3`
+
+If statement's block is executed only if its condition expression is `true`
+
+```go
+func main() {
+    score := 10
+
+    // DONT
+    if (score > 3) {
+        fmt.Println("Good")
+    }
+
+    // DO
+    if score > 3 {
+        fmt.Println("Good")
+    }
+}
+```
+
+- `score > 3`: this expression should always yield a `bool` value
+
+- `score > 3 && valid == true`: Condition expression: should always yield a `bool` value
+
+- `score > 3 && valid`: you can use `bool` values directly
+
+### Example: Passme
+
+User password protection is ON!
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+const (
+    usage = "Usage: [username] [password]"
+    errUser = "Access denied for %q\n"
+    accessOK = "Access granted for %q\n"
+
+    user = "hieu"
+    pass = "123456"
+)
+
+func main() {
+    l := len(os.Args)
+
+    if l != 3 {
+        fmt.Println(usage)
+        return
+    }
+
+    u, p := os.Args[1], os.Args[2]
+
+    if u != user && p != pass {
+        fmt.Printf(errUser, u)
+        return
+    }
+
+    fmt.Printf(accessOK, u)
+}
+```
