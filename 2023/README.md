@@ -707,3 +707,61 @@ func main() {
     fmt.Printf("SUCCESS: Converted %q to %d\n", age, n)
 }
 ```
+
+### What is a simple statement?
+
+- Short if
+- Scopes
+- Shadowing
+
+You can use a `simple statement` (short statement) with an `if` statement
+
+An example snippet of code which doesn't use a simple statement
+
+```go
+func main() {
+    n, err := strconv.Atoi("42")
+
+    if err == nil {
+        fmt.Println("NO ERROR")
+    }
+}
+```
+
+Do it much quicker and nicer way, using a simple statement
+
+```go
+if n, err := strconv.Atoi("42"); err == nil {
+    fmt.Println("NO ERROR")
+}
+```
+
+Simple statements allow you to execute a statement inside another statement
+
+- `n, error := strconv.Atoi("42")`
+- `;` seperates the `simple statement` and the `condition expression`
+- `condition expression` can use the `declared variables` inside
+  the simple statement
+- declared variables are only visible inside the `if statement` (and its `branches`)
+
+### Scopes of simple statements
+
+```go
+package main
+
+func main() {
+    if a := os.Args; len(a) != 2 {
+        // only: a
+        fmt.Println("Give me a number")
+    } else if n, err := strconv.Atoi(a[1]); err != nil {
+        // only: a, n, err
+        fmt.Printf("Cannot convert %q.\n", a[1])
+    } else {
+        // all the variables in the if statement
+        fmt.Printf("%s * 2 %d\n", a[1], n*2)
+    }
+
+    // out of scope
+    fmt.Printf("%s * 2 %d\n", a[1], n*2)
+}
+```
