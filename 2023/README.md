@@ -765,3 +765,48 @@ func main() {
     fmt.Printf("%s * 2 %d\n", a[1], n*2)
 }
 ```
+
+### Famous shadowing gotcha
+
+```go
+package main
+
+func main() {
+    var n int
+
+    if a := os.Args; len(a) != 2 {
+        // only: a
+        fmt.Println("Give me a number")
+    } else if n, err := strconv.Atoi(a[1]); err != nil {
+        // only: a, n, err
+        fmt.Printf("Cannot convert %q.\n", a[1])
+    } else {
+        // all the variables in the if statement
+        fmt.Printf("%s * 2 %d\n", a[1], n*2)
+    }
+
+    // n = 0
+    fmt.Printf("n is %d. 👻 👻 👻 - you've been shadowed ;)", n)
+}
+```
+
+![Image](assets/shadowing.png)
+
+```go
+package main
+
+func main() {
+    var (
+        n int
+        err error
+    )
+
+    if a := os.Args; len(a) != 2 {
+        fmt.Println("Give me a number")
+    } else if n, err = strconv.Atoi(a[1]); err != nil {
+        fmt.Printf("Cannot convert %q.\n", a[1])
+    }
+
+    fmt.Printf("%s * 2 %d\n", n, n*2)
+}
+```
