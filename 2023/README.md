@@ -432,3 +432,32 @@ func main() {
     )
 }
 ```
+
+### `Println` vs `Printf`
+
+`printf`: prints formatted output
+
+- `%q\n`: formatting text, determines `what` and `how` to print
+- `brand`: replace value(s), replaces the verb inside the formatting text
+- `\n`: escape sequence, prints a newline
+
+```go
+func main() {
+    var brand string = "Google"
+
+    fmt.Printf("%q\n", brand) // "Google"
+}
+```
+
+Println vs Printf
+
+To print this line: `total: 2350 success: 543/433`
+
+```go
+func main() {
+    fmt.Println("total:", ops, "success:", ok, "/", fail)
+
+    // %d: integer value
+    fmt.Printf("total: %d success: %d/%d \n", ops, ok, fail)
+}
+```
