@@ -1331,6 +1331,8 @@ Composite types
 
 ## Arrays and memory layout
 
+[Pdf](assets/pdf/Arrays.pdf)
+
 ### Roadmap
 
 - What is an array?
