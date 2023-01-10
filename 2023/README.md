@@ -1240,3 +1240,282 @@ func main() {
     }
 }
 ```
+
+### How to loop over a slice?
+
+Let's simply loop over a slice
+
+```go
+func main() {
+    for i := 1; i < len(os.Args); i++ {
+        fmt.Printf("%q\n", os.Args[i])
+    }
+}
+```
+
+### For Range: Learn the easy way
+
+`for range`: easy way to `loop over` slices
+
+```go
+func main() {
+    for i, v := range os.Args {
+        if i == 0 {
+            continue
+        }
+
+        fmt.Printf("%d - %q\n", i, v)
+    }
+}
+```
+
+or
+
+```go
+func main() {
+    for i, v := range os.Args[1:] {
+        fmt.Printf("%d - %q\n", i, v)
+    }
+}
+```
+
+Reuse variable
+
+```go
+func main() {
+    var (
+        i int
+        v string
+    )
+
+    for i, v = range os.Args[1:] {
+        fmt.Printf("%d - %q\n", i, v)
+    }
+}
+```
+
+- `range os.Args`: range clause, returns the next `index` and
+  the `value`
+
+- `os.Args`: range expression, this may be an `array.slice`, `string`, `map`, or a `channel`
+
+- Actually, range value is copied, we'll talk more about this
+  in the `pointers` section afterwards
+
+## Composite types
+
+Composite types: a compositve type is a type that is
+constructed by using other types, and a composite value
+can store more than one value
+
+Composite types
+
+- `Arrays`: collection of elements
+
+  - indexable
+  - fixed length
+
+- `Slices`: collection of elements
+
+  - indexable
+  - dynamic length: can grow and shrink
+
+- `string` internals
+
+  - `byte` slices
+  - ASCII & Unicode
+  - Encoding & Decoding
+
+- `Maps`: collection of indexable key-value pairs
+- `Structs`: groups different types of variables together
+
+## Arrays and memory layout
+
+### Roadmap
+
+- What is an array?
+- Getting and Setting array elements
+- Array literals - Easy way to create arrays
+- Comparing arrays
+- Assigning arrays
+- Multi-Dimensional arrays
+- Keyed elements
+- Named vs unnamed types
+
+### What is an array in Go?
+
+> Array is a fixed length container for the same type of values
+
+- Each array element is actually an `unnamed variable`
+- Go creates unnamed variables depending on array's element
+  type
+
+Array literal: you can use it to `create an array` + among with its elements
+
+- It's cumbersome to set elements of an array like this
+
+```go
+var books [4]string
+books[0] = "Kafka's revenge"
+books[1] = "stay golder"
+books[2] = "everythingship"
+book[3] = "Kafka's revenge 2nd edition"
+```
+
+Using array literals to `create` and `initializes` a new array
+with the given values
+
+```go
+var books  = [4]string{
+ "Kafka's revenge",
+ "stay golder",
+ "everythingship",
+ "Kafka's revenge 2nd edition"
+}
+```
+
+Array literal is one of the `composite literals`
+
+> `Composite literals` are used to create new `composite values` (like arrays) along with their `elements` on the fly.
+
+Go initializes the unitialized elements to zero values automatically
+
+Using `ellipsis`: `go` finds out the length of the array automatically
+
+```go
+a := [...]string{"Kafka's Revenge", "Stay golden"}
+```
+
+Comparing arrays
+
+You can only compare arrays that have `identical types`
+
+```go
+[3]int{1,2,3} == [3]int{1,2,3} // ???
+```
+
+Array are `comparable` when their types are `identical`
+
+- `[3]int`
+- `[3]int`
+
+Arrays are equal when their elements are equal, `Go` compares
+every element of the arrays one by one.
+
+Array are not equal even when their elements are not equal
+
+### Assigning arrays
+
+Remember, if you can `compare`, then you can `assign`
+
+- Assigned array's elements will be `copied` into a new array. `Copied array` and the `original array` are not connected.
+
+- Different types of arrays are not assignable
+
+### Multi-dimensional arrays
+
+Arrays of Arrays
+
+```go
+// 1st student's grades
+// 2nd student's grades
+
+var grades = [2][3]int{
+    [3]int{5, 6, 1},
+    [3]int{9, 8, 4}
+}
+```
+
+### Keyed elements
+
+Describe the `indexes` manually
+
+```go
+rates := [3]float64 {
+    0.5, // 0
+    2.5, // 1
+    1.5, // 2
+}
+```
+
+Using `keyed elements` to describe the index position
+
+```go
+rates := [3]float64{
+    0: 0.5,
+    1: 2.5,
+    2: 1.5,
+}
+```
+
+The keyed elements can be in any order
+
+```go
+rates := [3]float64{
+    1: 2.5,
+    0: 0.5,
+    2: 1.5,
+}
+```
+
+Uninitialized elements will be initialized to their zero values
+
+```go
+rates := [3]float64{
+    // 0: 0,
+    // 1: 0,
+    2: 1.5,
+}
+```
+
+### `named` and `unnamed` types
+
+Composite types and unnamed types
+
+> An unnamed composite type's underlying type is itself
+
+```go
+a := [3]int{1,2,3}
+
+// [3]int is unnamed type
+// underlying type is itself: [3]int
+```
+
+Type definition creates a new type with a new name
+
+```go
+type bookcase [3]int
+```
+
+- `bookcase`: the name of the type
+- `[3]int`: underlying type is `[3]int`
+
+- `unnamed` vs `named`: `Unnamed` and `Named` typed arrays comparable if their underlying types are identical.
+
+- `named` vs `named`: A named type is always a different type than any other type
+
+```go
+type bookcase [3]int
+type cabinet [3]int
+
+// DONT: bookcase{1,2,3} != cabinet{1,2,3}
+
+// you can only convert if their underlying types are identical
+// bookcase{1,2,3} == bookcase(cabinet(1,2,3))
+```
+
+### Summary
+
+- Array is a collection of elements
+- It stores the same type and the same number of elements in
+  contiguouse memory locations
+- You can access array elements using index expressions
+- Array literals
+- Ellipsis...
+- Keyed elements
+- Multi-dimensional arrays
+- Copied array and the original array are not connected
+- Different types of arrays are neither comparable nor assignable
+- An unnamed composite type's underlying type is itself
+- Unnamed and named typed values are comparable if their
+  underlying types are identical
