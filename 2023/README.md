@@ -984,3 +984,51 @@ func main() {
 ```
 
 When executed, it print `big positive number`
+
+### Short `switch`
+
+Previously
+
+```go
+func main() {
+    i := 10
+
+    switch {
+        case i > 0:
+            // positive
+        case i < 0:
+            // negative
+        default:
+            // zero
+    }
+}
+```
+
+Like a `short if` statement, a `short switch` statement can also
+use a simple statement.
+
+Simple statement runs `once` and `first`
+
+```go
+switch i := 10; true {
+    case i > 0:
+        // positive
+    case i < 0:
+        // negative
+    default:
+        // zero
+}
+```
+
+Or
+
+```go
+switch i := 10; {
+    case i > 0:
+        // positive
+    case i < 0:
+        // negative
+    default:
+        // zero
+}
+```
