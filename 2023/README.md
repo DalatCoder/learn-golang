@@ -1116,3 +1116,127 @@ Explains:
 - `;`: seperators, they seperate the parts of a for statement
 
 ![Image](assets/for.png)
+
+### How to break from a loop?
+
+Using `break` statement: ends the loop immediately
+
+### Type of `for` loops
+
+- Normal
+
+```go
+for i := 1; i <= 5; i++ {
+    sum += i
+}
+```
+
+- Remove the `initialization`
+
+```go
+i := 1
+for ; i <= 5; i++ {
+    sum += i
+}
+```
+
+- Remove `post statement` and do it manually
+
+```go
+i := 1
+for ; i <= 5; {
+    sum += i
+    i++
+}
+```
+
+- Remove the seperators, just remain condition. This is known
+  as the `for` statement with a `single condition`
+
+```go
+i := 1
+for i <= 5 {
+    sum += i
+    i++
+}
+```
+
+- Remove condition, get an infinite loop. Behind the scenes,
+  the condition just hidden, it equals to `true`
+
+  - keep repeating the loop until the user presses the
+    quit key
+  - network server: which runs and listen forever
+
+```go
+i := 1
+for {
+    sum += i
+    i ++
+}
+```
+
+Stop an `infinite` loop using `break` statement
+
+```go
+i := 1
+for {
+    if i > 5 {
+        break
+    }
+
+    sum += i
+    i ++
+}
+```
+
+### How to continue a loop
+
+`continue statement`: quits the current step and repeats
+the loop from where it left off.
+
+```go
+i := 1
+for {
+    if i > 5 {
+        break
+    }
+
+    if i % 2 != 0 {
+        continue
+    }
+
+    sum += i
+    i ++
+}
+```
+
+### Nested loops
+
+Let's put a `loop` inside another `loop`
+
+```go
+package main
+
+const max = 5
+
+func main() {
+    fmt.Printf("%5s", "X")
+
+    for i := 0; i < max; i++ {
+        fmt.Printf("%5d", i)
+    }
+
+    fmt.Println()
+
+    for i := 0; i <= max; i++ {
+        fmt.Printf("%5d", i)
+
+        for j := 0; j <= max; j++ {
+            fmt.Printf("%5d", i*j)
+        }
+
+        fmt.Println()
+    }
+}
+```
