@@ -1080,3 +1080,39 @@ func main() {
     }
 }
 ```
+
+### There is only one `loop` statement in `Go`
+
+Time to learn how to control the execution flow using `loops`
+
+- `for` statement
+- `nested loops`
+- `range loops`
+
+`for` statement: repeats a block of code as long as its condition is `true`
+
+```go
+func main() {
+    var sum int
+
+    for i := 1; i <= 1000; i++ {
+        sum += i
+    }
+
+    fmt.Println(sum)
+}
+```
+
+Explains:
+
+- `i := 1`: init statement: runs one, before the `for` loop begins
+
+- `i <= 5`: condition expression, it will be checked just before
+  each loop step starts. The `loop` will continue as long as
+  this expression is `true`
+
+- `i++` post statement: runs after each step of the `loop`
+
+- `;`: seperators, they seperate the parts of a for statement
+
+![Image](assets/for.png)
