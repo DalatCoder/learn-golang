@@ -939,3 +939,48 @@ func main() {
     }
 }
 ```
+
+### `fallthough` statement
+
+Fallthroughs to the next case clause unconditionally
+
+```go
+func main() {
+    i := 142
+
+    switch {
+        case i > 100:
+            fmt.Println("big positive number")
+
+        case i > 0:
+            fmt.Println("positive number")
+
+        default:
+            fmt.Println("number")
+    }
+}
+```
+
+When executed, it just print `big positive number`
+
+Using `fallthrough` statement: executes the next clause without
+checking for its condition
+
+```go
+func main() {
+    i := 142
+
+    switch {
+        case i > 100:
+            fmt.Print("big")
+            fallthrough
+        case i > 0:
+            fmt.Print("positive")
+            fallthrough
+        default:
+            fmt.Print("number")
+    }
+}
+```
+
+When executed, it print `big positive number`
