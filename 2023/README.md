@@ -1032,3 +1032,51 @@ switch i := 10; {
         // zero
 }
 ```
+
+### Example: Parts of a day
+
+`time package` allows you to work with `time`
+
+[Docs](https://golang.org/pkg/time/)
+
+```go
+func main() {
+    h := time.Now().Hour()
+    fmt.Println("Current hour is", h)
+
+    switch {
+        case h >= 18:
+            fmt.Println("good evening")
+
+        case h >= 12:
+            fmt.Println("good afternoon")
+
+        case h >= 6:
+            fmt.Println("good morning")
+
+        default:
+            fmt.Println("good night")
+    }
+}
+```
+
+Or
+
+```go
+func main() {
+
+    switch h := time.Now().Hour(); {
+        case h >= 18:
+            fmt.Println("good evening")
+
+        case h >= 12:
+            fmt.Println("good afternoon")
+
+        case h >= 6:
+            fmt.Println("good morning")
+
+        default:
+            fmt.Println("good night")
+    }
+}
+```
