@@ -894,3 +894,48 @@ func main() {
     }
 }
 ```
+
+### Use `bool` expressions in `case` conditions
+
+You can also use boolean expressions as the conditions
+
+Remember: case condition's types should match to condition
+expression's type
+
+```go
+func main() {
+    switch true {
+        case i > 0:
+            // positive
+
+        case i < 0:
+            // negative
+
+        default:
+            // zero
+    }
+}
+```
+
+- Both are bool expressions
+- They return bool values
+- Their type is bool
+
+`Go` executes a switch statement from top to bottom
+
+In `Go`, switch condition is by default `true`
+
+```go
+func main() {
+    switch {
+        case i > 0:
+            // positive
+
+        case i < 0:
+            // negative
+
+        default:
+            // zero
+    }
+}
+```
